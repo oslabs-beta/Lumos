@@ -4,7 +4,9 @@
   "description": "<a href=\"https://excalidraw.com/#json=oPciaBeml8N1pVKFR27uB,cSQoBdLi9vR_jbHPsHer8w\" target=\"_blank\">Visual Guild Linked Here</a> ## Creating a New Branch 1. Clone repo to your local system. - `git clone",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve --open",
+    "windows-dev": "concurrently \"NODE_ENV=development node server/server.js\" \"NODE_ENV=development webpack serve --open\""
   },
   "repository": {
     "type": "git",
@@ -32,6 +34,7 @@
     "nodemon": "^2.0.19",
     "npm": "^8.15.1",
     "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
@@ -54,6 +57,7 @@
     "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.2.0",
     "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0",
     "sass-loader": "^13.0.2",
     "style-loader": "^3.3.1"
   }
