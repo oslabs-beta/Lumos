@@ -1,6 +1,15 @@
 const express = require("express");
 const app = express();
 const PORT = 3000;
+const cookieParser = require('cookie-parser');
+
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(cookieParser());
+
+const userRouter = require('./routes/userRoute');
+
+app.use('/user', userRouter);
 
 // catch all route handler
 app.use("*", (req, res) =>
