@@ -1,0 +1,85 @@
+.outerContainer {
+  background: whitesmoke;
+  height: 98vh;
+  display: grid !important;
+  grid-template-columns: 160px 1fr 1fr 1fr;
+  grid-template-rows: 80px 80px 1fr 1fr 1fr 1fr 80px;
+  gap: 20px;
+  grid-template-areas:
+    "Nav Nav Nav Nav"
+    "Sidebar Header Header Header"
+    "Sidebar Metrics Metrics Usage"
+    "Sidebar Metrics Metrics Usage"
+    "Sidebar Charts Charts Errors"
+    "Sidebar Charts Charts Errors"
+    "Footer Footer Footer Footer";
+  padding: 10px;
+}
+
+/* Center CSS */
+
+.Header,
+.Metrics,
+.Usage,
+.Charts,
+.Errors,
+.Sidebar,
+.Footer {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background: whitesmoke;
+  border-radius: 15px;
+  box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+}
+
+.Nav {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: ". . .";
+  grid-area: Nav;
+  border-radius: 15px;
+  box-shadow: 1px 0px 15px #00000020;
+}
+
+.Logo {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginForm {
+  display: flex;
+  max-height: 55px;
+  justify-self: right;
+  align-self: center;
+}
+
+.Header {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-area: Header;
+  text-align: center;
+}
+.Metrics {
+  grid-area: Metrics;
+}
+.Usage {
+  grid-area: Usage;
+}
+.Charts {
+  grid-area: Charts;
+}
+.Errors {
+  grid-area: Errors;
+}
+.Sidebar {
+  grid-area: Sidebar;
+}
+.Footer {
+  grid-area: Footer;
+}
