@@ -5,8 +5,8 @@ import MetricCard from '../components/Cards/MetricCard.jsx'
 
 function Metrics() {
   return (
-    <Box className="Metrics">
-      <MetricCard />
+    <Box className="Metrics">Metrics
+    <MetricCard className="Metrics"/>
     </Box>
   );
 }

@@ -11,7 +11,49 @@ function Errors() {
 
   return (
     <Box className="Errors" overflow={'scroll'}>
-  <Grid container spacing={1} align="center" style={{ width: "120%" }}>
+    {/* <Table style={{ width: "90%" }} align="center">
+    <TableHead>
+      <TableRow>
+        <TableCell style={{ border: "1px solid grey" }} align="left">
+          Errors
+        </TableCell>
+        <TableCell style={{ border: "1px solid grey" }} align="right">
+        Start
+        </TableCell>
+        <TableCell style={{ border: "1px solid grey" }} align="right">
+          End
+        </TableCell>
+        <TableCell style={{ border: "1px solid grey" }} align="right">
+          Type
+        </TableCell>
+        <TableCell style={{ border: "1px solid grey" }} align="right">
+          Cost
+        </TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {rows.map((row) => (
+        <TableRow key={row.name}>
+          <TableCell style={{ border: "1px solid grey" }} align="left">
+            {row.name}
+          </TableCell>
+          <TableCell style={{ border: "1px solid grey" }} align="right">
+            {row.Start}
+          </TableCell>
+          <TableCell style={{ border: "1px solid grey" }} align="right">
+            {row.End}
+          </TableCell>
+          <TableCell style={{ border: "1px solid grey" }} align="right">
+            {row.Type}
+          </TableCell>
+          <TableCell style={{ border: "1px solid grey" }} align="right">
+            {row.Cost}
+          </TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table> */}
+  <Grid container spacing={1} align="center" style={{ width: "100%" }}>
         <Grid item xs={4} align="center" style={{ border: "1px solid grey" }}>
          Errors
         </Grid>
@@ -33,7 +75,7 @@ function Errors() {
           container
           spacing={1}
           align="center"
-          style={{ width: "120%" }}
+          style={{ width: "90%" }}
           key={row.name}
         >
           <Grid item xs={4} align="left" style={{ border: "1px solid grey" }}>

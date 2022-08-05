@@ -126,7 +126,7 @@
 .Metrics {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 20px;
+  gap: 40px;
   grid-template-areas:
     "Active-Functions Total-Errors"
     "Avg-Cost Avg-Duration";
@@ -157,9 +157,7 @@
   grid-template-areas: "Stats Stats cardIcon";
   gap: 0px;
   height: 100%;
-}
-
-.metricContainer {
+  padding: 20px;
 }
 
 .cardStats {

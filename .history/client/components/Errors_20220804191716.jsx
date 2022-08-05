@@ -11,7 +11,7 @@ function Errors() {
 
   return (
     <Box className="Errors" overflow={'scroll'}>
-  <Grid container spacing={1} align="center" style={{ width: "120%" }}>
+  <Grid container  align="center" style={{ width: "120%" }}>
         <Grid item xs={4} align="center" style={{ border: "1px solid grey" }}>
          Errors
         </Grid>

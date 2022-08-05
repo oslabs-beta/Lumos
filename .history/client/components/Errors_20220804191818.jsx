@@ -31,7 +31,7 @@ function Errors() {
       {rows.map((row) => (
         <Grid
           container
-          spacing={1}
+          
           align="center"
           style={{ width: "120%" }}
           key={row.name}

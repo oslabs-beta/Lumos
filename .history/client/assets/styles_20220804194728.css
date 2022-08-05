@@ -21,6 +21,7 @@
 /* Center CSS */
 
 .Header,
+.Metrics,
 .Usage,
 .Charts,
 .Errors,
@@ -126,50 +127,12 @@
 .Metrics {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 20px;
+  gap: 0px 0px;
   grid-template-areas:
     "Active-Functions Total-Errors"
     "Avg-Cost Avg-Duration";
   grid-area: Metrics;
-  font-family: Roboto;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 }
-
-.metricCard {
-  font-family: Roboto;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  background-color: whitesmoke;
-  box-shadow: 9px 9px 16px rgb(163, 177, 198, 0.2),
-    -9px -9px 16px rgba(255, 255, 255, 0.3);
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas: "Stats Stats cardIcon";
-  gap: 0px;
-  height: 100%;
-}
-
-.metricContainer {
-}
-
-.cardStats {
-  grid-area: Stats;
-}
-
-.cardIcon {
-  grid-area: cardIcon;
-}
-
 .Usage {
   grid-area: Usage;
 }

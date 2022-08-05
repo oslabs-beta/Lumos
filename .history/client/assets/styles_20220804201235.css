@@ -159,9 +159,6 @@
   height: 100%;
 }
 
-.metricContainer {
-}
-
 .cardStats {
   grid-area: Stats;
 }
@@ -190,6 +187,7 @@
 
 .Active-Functions {
   grid-area: Active-Functions;
+  padding: 20px;
 }
 .Total-Errors {
   grid-area: Total-Errors;

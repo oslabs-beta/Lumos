@@ -5,7 +5,10 @@ import MetricCard from '../components/Cards/MetricCard.jsx'
 
 function Metrics() {
   return (
-    <Box className="Metrics">
+    <Box className="Metrics">Metrics
+      <MetricCard />
+      <MetricCard />
+      <MetricCard />
       <MetricCard />
     </Box>
   );

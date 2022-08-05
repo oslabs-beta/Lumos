@@ -157,9 +157,7 @@
   grid-template-areas: "Stats Stats cardIcon";
   gap: 0px;
   height: 100%;
-}
-
-.metricContainer {
+  padding: 20px;
 }
 
 .cardStats {

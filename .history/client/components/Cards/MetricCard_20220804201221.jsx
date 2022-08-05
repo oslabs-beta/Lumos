@@ -7,6 +7,7 @@ export default function MetricCard() {
   return (
     <>
     <Box container className="Active-Functions metricCard">
+      <div className="metricContainer">
       <div className="cardStats">
        <div className="statsNumber">61</div>
        <div className="cardPercentage">+5%</div>
@@ -14,6 +15,7 @@ export default function MetricCard() {
       </div>
       <div className="cardIcon">
         <div>+</div>
+      </div>
       </div>
     </Box>
     <Box container className="Total-Errors metricCard">

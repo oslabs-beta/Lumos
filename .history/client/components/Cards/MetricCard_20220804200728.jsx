@@ -20,17 +20,17 @@ export default function MetricCard() {
       <div className="cardStats">
        <div className="statsNumber">61</div>
        <div className="cardPercentage">+5%</div>
-       <div className="cardTitle">Total Errors</div>
+       <div className="cardTitle">Active Functions</div>
       </div>
       <div className="cardIcon">
         <div>+</div>
       </div>
     </Box>
-    <Box container className="Avg-Cost metricCard">
+    <Box container className="Averag metricCard">
       <div className="cardStats">
        <div className="statsNumber">61</div>
        <div className="cardPercentage">+5%</div>
-       <div className="cardTitle">Avg Cost</div>
+       <div className="cardTitle">Active Functions</div>
       </div>
       <div className="cardIcon">
         <div>+</div>
@@ -40,7 +40,7 @@ export default function MetricCard() {
       <div className="cardStats">
        <div className="statsNumber">61</div>
        <div className="cardPercentage">+5%</div>
-       <div className="cardTitle">Avg Duration</div>
+       <div className="cardTitle">Active Functions</div>
       </div>
       <div className="cardIcon">
         <div>+</div>
