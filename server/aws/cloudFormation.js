@@ -16,7 +16,7 @@ const createStack = async () => {
             Properties:
                 ManagedPolicyArns:
                     - arn:aws:iam::aws:policy/CloudWatchFullAccess
-                    - arn:aws:iam::aws:policy/AWSLambda_FullAccess
+                    - arn:aws:iam::aws:policy/AWSLambda_FullAccessa
       Outputs:
         outputArn:
             Description: ARN
@@ -31,4 +31,6 @@ const createStack = async () => {
   return response;
 };
 
-createStack().then((res) => console.log(res));
+createStack().then((response) => console.log(response))
+
+module.exports = createStack;
