@@ -1,4 +1,6 @@
-const express = require("express");
+/* eslint-disable linebreak-style */
+const express = require('express');
+
 const app = express();
 const PORT = 3000;
 const cookieParser = require("cookie-parser");
@@ -12,18 +14,16 @@ const userRouter = require("./routes/userRoute");
 app.use("/user", userRouter);
 
 // catch all route handler
-app.use("*", (req, res) =>
-  res.status(404).send("This is not the page you're looking for...")
-);
+app.use('*', (req, res) => res.status(404).send("This is not the page you're looking for..."));
 
 // Global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: "Express error handler caught unknown middleware error",
+    log: 'Express error handler caught unknown middleware error',
     status: 500,
-    message: { err: "An error occurred" },
+    message: { err: 'An error occurred' },
   };
-  const errorObj = Object.assign({}, defaultErr, err);
+  const errorObj = { ...defaultErr, ...err };
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });

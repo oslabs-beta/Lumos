@@ -1,0 +1,63 @@
+.outerContainer {
+  background: white;
+  height: 100vh;
+  display: grid !important;
+  grid-template-columns: 160px 1fr 1fr 1fr;
+  grid-template-rows: 80px 80px 1fr 1fr 1fr 1fr 80px;
+  gap: 0px 0px;
+  grid-template-areas:
+    "Nav Nav Nav Nav"
+    "Sidebar Header Header Header"
+    "Sidebar Metrics Metrics Usage"
+    "Sidebar Metrics Metrics Usage"
+    "Sidebar Charts Charts Errors"
+    "Sidebar Charts Charts Errors"
+    "Footer Footer Footer Footer";
+}
+
+.Nav {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: ". . .";
+  grid-area: Nav;
+}
+.Header {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: ". .";
+  grid-area: Header;
+  background: whitesmoke;
+  border-radius: 15px;
+}
+.Metrics {
+  grid-area: Metrics;
+  background: whitesmoke;
+  border-radius: 15px;
+}
+.Usage {
+  grid-area: Usage;
+  background: whitesmoke;
+  border-radius: 15px;
+}
+.Charts {
+  grid-area: Charts;
+  background: whitesmoke;
+  border-radius: 15px;
+}
+.Errors {
+  grid-area: Errors;
+  background: whitesmoke;
+  border-radius: 15px;
+}
+.Sidebar {
+  grid-area: Sidebar;
+  background: whitesmoke;
+  border-radius: 15px;
+}
+.Footer {
+  grid-area: Footer;
+}
