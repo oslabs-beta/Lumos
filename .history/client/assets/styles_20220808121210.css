@@ -213,21 +213,18 @@
   font-weight: 300;
   font-size: 12px;
   margin: 0px 0px 10px 0px !important;
-  padding: 6px 0px 6px 10px;
+  padding: 5px 0px 5px 5px;
   box-shadow: 1px 0px 15px #00000015;
-  border-radius: 15px;
 }
-
 .Errors.children {
   background-color: whitesmoke;
   height: 100%;
-  overflow: scroll !important;
 }
 
 .ErrorsChildrenContainer {
-  border-bottom: 1px dotted rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.235);
   margin: 0px !important;
-  padding: 10px 0px !important;
+  padding: 2px !important;
 }
 
 .err {

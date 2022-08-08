@@ -21,13 +21,7 @@ export default function MetricCard() {
 
   // const { View } = useLottie(lambdaOptions);
   // const { View } = useLottie(errorOptions);
-/*
-send date object to backend to grab metrics
-startTime
-endTime
-any metric name / invocations, errors, throttle, duration return a float number
-period
- */
+
   return (
     <>
     <Box container className="Active-Functions metricCard">

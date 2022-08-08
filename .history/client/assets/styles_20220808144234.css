@@ -221,7 +221,7 @@
 .Errors.children {
   background-color: whitesmoke;
   height: 100%;
-  overflow: scroll !important;
+  overflow-x: scroll !important;
 }
 
 .ErrorsChildrenContainer {

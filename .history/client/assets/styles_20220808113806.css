@@ -189,14 +189,21 @@
   grid-area: Charts;
 }
 .Errors {
-  grid-template-columns: 1fr;
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+  grid-template-rows: 1fr 1fr;
   gap: 0px 0px;
+  grid-template-areas:
+    "err start end type cost"
+    "rowErr rowStart rowEnd rowType rowCost";
   grid-area: Errors;
+  grid-auto-flow: row;
   font-family: Roboto;
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 3px;
   display: grid;
+  justify-content: center;
+  align-items: center;
   border-radius: 20px;
   background-color: whitesmoke;
   box-shadow: 9px 9px 16px rgb(163, 177, 198, 0.2),
@@ -204,30 +211,40 @@
   height: 100%;
 }
 
-.errorsContainer {
-  padding: 20px;
-}
-
 .errHeader {
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+  grid-template-rows: 1fr;
+  gap: 2px 2px;
+  grid-template-areas: "err start end type cost";
+  grid-area: Errors;
+  grid-auto-flow: row;
   font-family: Roboto;
   font-weight: 300;
-  font-size: 12px;
-  margin: 0px 0px 10px 0px !important;
-  padding: 6px 0px 6px 10px;
-  box-shadow: 1px 0px 15px #00000015;
-  border-radius: 15px;
-}
-
-.Errors.children {
+  display: grid;
+  justify-content: center;
+  align-items: center;
   background-color: whitesmoke;
   height: 100%;
-  overflow: scroll !important;
 }
-
-.ErrorsChildrenContainer {
-  border-bottom: 1px dotted rgba(0, 0, 0, 0.15);
-  margin: 0px !important;
-  padding: 10px 0px !important;
+.Errors.children {
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "rowErr rowStart rowEnd rowType rowCost";
+  grid-area: Errors;
+  grid-auto-flow: row;
+  font-family: Roboto;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background-color: whitesmoke;
+  box-shadow: 9px 9px 16px rgb(163, 177, 198, 0.2),
+    -9px -9px 16px rgba(255, 255, 255, 0.3);
+  height: 100%;
 }
 
 .err {

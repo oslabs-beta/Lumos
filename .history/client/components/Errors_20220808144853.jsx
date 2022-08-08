@@ -100,9 +100,8 @@ function Errors() {
 // );
  
 }
-// new Date("August 6, 2022 13:30:30") <- needs to be sent to the backend
 const today = new Date();
-let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+'T'+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();;
+let date = today.getFullYear().toString().substr(-2)+'-'+(today.getMonth()+1)+'-'+today.getDate()+'T'+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();;
 /*
 label = function that was called 
 status = whether the function is still running, completed or errored

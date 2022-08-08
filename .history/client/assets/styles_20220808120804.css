@@ -212,22 +212,18 @@
   font-family: Roboto;
   font-weight: 300;
   font-size: 12px;
-  margin: 0px 0px 10px 0px !important;
-  padding: 6px 0px 6px 10px;
-  box-shadow: 1px 0px 15px #00000015;
-  border-radius: 15px;
+  margin: 0px !important;
+  padding-bottom: 10px;
 }
-
 .Errors.children {
   background-color: whitesmoke;
   height: 100%;
-  overflow: scroll !important;
 }
 
 .ErrorsChildrenContainer {
-  border-bottom: 1px dotted rgba(0, 0, 0, 0.15);
+  border: 1px solid black;
   margin: 0px !important;
-  padding: 10px 0px !important;
+  padding: 0px !important;
 }
 
 .err {
@@ -247,6 +243,7 @@
 }
 .rowErr {
   grid-area: rowErr;
+  border: 1px solid black;
 }
 .rowStart {
   grid-area: rowStart;

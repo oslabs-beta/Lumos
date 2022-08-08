@@ -25,7 +25,7 @@ export default function MetricCard() {
 send date object to backend to grab metrics
 startTime
 endTime
-any metric name / invocations, errors, throttle, duration return a float number
+any metric name / invocations, errors, throttle, duration
 period
  */
   return (

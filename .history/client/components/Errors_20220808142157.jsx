@@ -100,16 +100,9 @@ function Errors() {
 // );
  
 }
-// new Date("August 6, 2022 13:30:30") <- needs to be sent to the backend
 const today = new Date();
-let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+'T'+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();;
-/*
-label = function that was called 
-status = whether the function is still running, completed or errored
-value = amount of error/ less is best
-timestamp = when function status occurred 
-*/
+let date = today.getFullYear().toString().substr(-2)+'-'+(today.getMonth()+1)+'-'+today.getDate()+'T'+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();;
 const rows = [
-  { Label: "Error 1", Status: 'Complete', Value: 34, Timestamp: date, Cost: 4.0},{ Label: "Error 2", Status: 159, Value: 17, Timestamp: date, Cost: 4.0},{ Label: "Error 3", Status: 159, Value: 45, Timestamp: date, Cost: 4.0},{ Label: "Error 4", Status: 159, Value: 29, Timestamp: date, Cost: 4.0},
+  { Label: "Error 1", Status: 'Complete', Value: 6.0, Timestamp: date+'let me check that overflow', Cost: 4.0},{ Label: "Error 2", Status: 159, Value: 6.0, Timestamp: date, Cost: 4.0},{ Label: "Error 3", Status: 159, Value: 6.0, Timestamp: date, Cost: 4.0},{ Label: "Error 4", Status: 159, Value: 6.0, Timestamp: date, Cost: 4.0},
 ]
 export default Errors;

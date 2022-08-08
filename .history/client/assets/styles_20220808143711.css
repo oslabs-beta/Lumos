@@ -217,11 +217,20 @@
   box-shadow: 1px 0px 15px #00000015;
   border-radius: 15px;
 }
-
 .Errors.children {
   background-color: whitesmoke;
   height: 100%;
-  overflow: scroll !important;
+}
+.Errors.children
+  ~ .Errors.children
+  ~ .Errors.children
+  ~ .Errors.children
+  ~ .Errors.children
+  ~ .Errors.children
+  ~ .Errors.children
+  ~ {
+  color: #ec0d0d !important;
+  overflow-x: scroll !important;
 }
 
 .ErrorsChildrenContainer {

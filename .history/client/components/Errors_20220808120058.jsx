@@ -6,50 +6,47 @@ function Errors() {
 
   return (
        <Box className="Errors" overflow={'scroll'}>
-        <div className="errorsContainer">
-  <Grid container spacing={0} className="errHeader">
+  <Grid container className="errorsContainer" spacing={1} style={{ width: "100%", fontSize: 12 }}>
         <Grid item xs={3} className="Errors.children">
-         Label
+         Errors
         </Grid>
         <Grid item xs={3} className="Errors.children">
-        Status
+          Start
         </Grid>
         <Grid item xs={2} className="Errors.children">
-          Value
+          End
         </Grid>
-        {/* <Grid item xs={2} className="Errors.children">
+        <Grid item xs={2} className="Errors.children">
+          Type
+        </Grid>
+        <Grid item xs={2} className="Errors.children">
           Cost
-        </Grid> */}
-        <Grid item xs={4} className="Errors.children">
-        Timestamp
         </Grid>
       </Grid>
       {rows.map((row) => (
         <Grid
           container
           spacing={1}
-          style={{ width: "100%", fontSize: 12 }}
+          style={{ width: "100%", fontSize: 14 }}
           key={row.name}
-          className="ErrorsChildrenContainer"
         >
           <Grid item xs={3} className="Errors.children">
-            {row.Label}
+            {row.name}
           </Grid>
           <Grid item xs={3} className="Errors.children">
-            {row.Status}
+            {row.Start}
           </Grid>
           <Grid item xs={2} className="Errors.children">
-            {row.Value}
+            {row.End}
           </Grid>
-          {/* <Grid item xs={2} className="Errors.children">
+          <Grid item xs={2} className="Errors.children">
+            {row.Type}
+          </Grid>
+          <Grid item xs={2} className="Errors.children">
             {row.Cost}
-          </Grid> */}
-          <Grid item xs={4} className="Errors.children">
-            {row.Timestamp}
           </Grid>
         </Grid>
       ))}
-      </div>
   </Box>
   );
 //     <Box className="Errors" overflow={'scroll'}>
@@ -100,16 +97,35 @@ function Errors() {
 // );
  
 }
-// new Date("August 6, 2022 13:30:30") <- needs to be sent to the backend
-const today = new Date();
-let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+'T'+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();;
-/*
-label = function that was called 
-status = whether the function is still running, completed or errored
-value = amount of error/ less is best
-timestamp = when function status occurred 
-*/
 const rows = [
-  { Label: "Error 1", Status: 'Complete', Value: 34, Timestamp: date, Cost: 4.0},{ Label: "Error 2", Status: 159, Value: 17, Timestamp: date, Cost: 4.0},{ Label: "Error 3", Status: 159, Value: 45, Timestamp: date, Cost: 4.0},{ Label: "Error 4", Status: 159, Value: 29, Timestamp: date, Cost: 4.0},
+  { name: "Error 1", Start: 159, End: 6.0, Type: 24, Cost: 4.0},
+  {
+    name: "Error 2",
+    Start: 237,
+    End: 9.0,
+    Type: 37,
+    Cost: 4.3
+  },
+  {
+    name: "Error 3",
+    Start: 237,
+    End: 9.0,
+    Type: 37,
+    Cost: 4.3
+  },
+  {
+    name: "Error 4",
+    Start: 237,
+    End: 9.0,
+    Type: 37,
+    Cost: 4.3
+  },
+  {
+    name: "Error 5",
+    Start: 237,
+    End: 4.0,
+    Type: 37,
+    Cost: 4.3
+  }
 ]
 export default Errors;
