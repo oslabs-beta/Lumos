@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve --open",
+    "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve",
     "windows-dev": "concurrently \"NODE_ENV=development node server/server.js\" \"NODE_ENV=development webpack serve --open\"",
     "win-dev2": "concurrently \"cross-env NODE_ENV=development node server/server.js\" \"cross-env NODE_ENV=development webpack serve --open\""
   },
@@ -39,11 +39,17 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
+    "@aws-sdk/client-cloudformation": "^3.142.0",
+    "@aws-sdk/client-cloudwatch": "^3.142.0",
+    "@aws-sdk/client-cloudwatch-logs": "^3.142.0",
+    "@aws-sdk/client-iam": "^3.142.0",
+    "@aws-sdk/client-sts": "^3.142.0",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@mui/material": "^5.9.3",
     "axios": "^0.27.2",
     "babel-loader": "^8.2.5",
+    "bcryptjs": "^2.4.3",
     "chart.js": "^3.9.0",
     "concurrently": "^7.3.0",
     "cookie-parser": "^1.4.6",
@@ -52,9 +58,11 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "lottie-react": "^2.3.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.0",
     "mui": "^0.0.1",
     "path": "^0.12.7",
+    "pg": "^8.7.3",
     "react": "^18.2.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.2.0",
