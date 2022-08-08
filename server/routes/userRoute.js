@@ -7,7 +7,7 @@ const userController = require("../controllers/userController.js");
 // })
 
 router.post("/register", userController.createUser, (req, res) => {
-  res.status(200).json(table);
+  res.status(200).send("User got created in database");
 });
 
 module.exports = router;

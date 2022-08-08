@@ -1,51 +1,115 @@
 const {
   ListMetricsCommand,
-  GetMetricData,
-  GetMetricStatistics,
+  GetMetricDataCommand,
+  GetMetricStatisticsCommand,
   CloudWatchClient,
 } = require("@aws-sdk/client-cloudwatch");
-// const { STSClient, AssumeRoleCommand } = require("@aws-sdk/client-sts");
 
-const getCloudwatchData = async () => {
-  // const client = await new STSClient({
-  //   region: "us-east-1",
-  //   credentials: {
-  //     accessKeyId: "AKIAXC2JQ4LLWWRGIPM5",
-  //     secretAccessKey: "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",
-  //   },
-  // });
+const {
+  CloudWatchLogsClient,
+  CreateLogStreamCommand,
+  GetLogEventsCommand,
+  DescribeLogGroupsCommand,
+  DescribeLogStreamsCommand,
+} = require("@aws-sdk/client-cloudwatch-logs");
 
-  // const role = await client.send(
-  //   new AssumeRoleCommand({ RoleSessionName: "LUMOS", RoleArn: arn })
-  // );
 
-  const client = await new CloudWatchClient({
-    region: "us-east-1",
-    credentials: {
-      accessKeyId: "AKIAXC2JQ4LLWWRGIPM5",
-      secretAccessKey: "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",
-    },
-  });
 
-  const params = {
-    Dimensions: [
-      {
-        Name: "LambdaInvocations" /* required */,
-      },
-    ],
-    MetricName: "Invocations",
-    Namespace: "AWS/Lambda",
-  };
+  // const params = {
+  //   Dimensions: [
+  //     {
+  //       Name: "LambdaInvocations" /* required */,
+  //     },
+  //   ],
+  //   MetricName: "Invocations",
+  //   Namespace: "AWS/Lambda",
+  // };
 
-  // console.log(role);
+    // const data = await client.send(new ListMetricsCommand({Namespace: 'AWS/Lambda'}));
 
-  try {
-    const data = await client.send(new ListMetricsCommand(params));
-    console.log("Success. Metrics:", JSON.stringify(data.Metrics));
-    return data;
-  } catch (err) {
-    console.log("Error", err);
-  }
+    // const params = {
+    //   Dimensions: [
+    //     {
+    //       Name: "lolololooololoolol dude aws sucks" /* required */,
+    //     },
+    //   ],
+    //   MetricName: "IncomingLogEvents",
+    //   Namespace: "AWS/Logs",
+    // };
+
+// const getLogs = (logGroup, limit) => {
+
+//       const client = await new CloudWatchLogsClient({region: "us-east-1"})
+
+//       if (!logGroup) {
+//         const logGroupsList = await client.send(
+//           new DescribeLogGroupsCommand(
+//             { limit: 50 }
+//           )
+//         );
+  
+//       const streamsArr = [];
+  
+  
+//       for (let i = 0; i < logGroupsList.logGroups.length; i++) {
+//         const stream = await client.send(
+//           new DescribeLogStreamsCommand({
+//             logGroupName: logGroupsList.logGroups[i].logGroupName,
+//           })
+//         );
+          
+//         const tempArr = [];
+  
+//         tempArr.push(logGroupsList.logGroups[i].logGroupName)
+//         tempArr.push(stream);
+  
+//         streamsArr.push(tempArr);
+//       }
+  
+  
+//      for (let i = 0; i < streamsArr.length; i++) {
+//        for (let j = 0; j < streamsArr[i][1].logStreams.length; j ++) {
+//          const events = await client.send(new GetLogEventsCommand({
+//            logGroupName: streamsArr[i][0],
+//            logStreamName: streamsArr[i][1].logStreams[j].logStreamName
+//          }))
+//          console.log(events);
+//        }
+//      }
+//     } else {
+//       //
+//     }
+
+      // const client = await new CloudWatchLogsClient({region: "us-east-1"})
+
+const getMetric = () => {
+  
+}
+
+      const client = await new CloudWatchClient({region: "us-east-1"})
+      const data = await client.send(
+        new GetMetricDataCommand({
+          Namespace: "AWS/Lambda",
+          MetricName: "Errors",
+          StartTime: new Date("August 6, 2022 13:30:30"),
+          EndTime: new Date("August 6, 2022 16:00:00"),
+          MetricDataQueries: [
+            {
+              Id: "test",
+              MetricStat: {
+                Metric: {
+                  MetricName: "Errors",
+                  Namespace: "AWS/Lambda",
+                },
+                Period: 60,
+                Stat: "Maximum",
+              },
+            },
+          ],
+        })
+      );
+      // console.log("Success. Metrics:", JSON.stringify(data.Metrics));
+      console.log(data.MetricDataResults[0]);    
 
   // const config = {
   //   StackName: "LUMOSSTACK",
@@ -64,6 +128,6 @@ const getCloudwatchData = async () => {
   //           Value: !GetAtt LumosUser.Arn
   //   `,
   // };
-};
+// };
 
 getCloudwatchData();
