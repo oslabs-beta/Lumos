@@ -38,6 +38,7 @@ export default function Sign() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(result)
     }).then((loginData) => {
+      console.log(loginData)
       if (loginData === "true") {
         window.alert(`You're signed in ${data.email}`);
       }
