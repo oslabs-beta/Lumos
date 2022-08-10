@@ -30,17 +30,17 @@ const getMetrics = async(startTime, endTime, metricName, period) => {
         })
       );
       console.log('hi')
-console.log(data.MetricDataResults[0]);
+console.log(data.MetricDataResults);
       return data;
   } catch (err) {
     return err
   }      
 }
 
-// getMetrics(new Date("August 6, 2022 13:30:30"), new Date("August 8, 2022 17:00:00"), "Duration", 30);
+getMetrics(new Date("August 1, 2022 15:30:30"), new Date("August 10, 2022 18:00:00"), "Invocations", 60);
 
-const date = new Date();
+// const date = new Date();
 
-date.setHours(5)
+// date.setHours(5)
 
-console.log(date)
+// console.log(date)
