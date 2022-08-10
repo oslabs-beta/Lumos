@@ -86,7 +86,8 @@ const getMetric = () => {
   
 }
 
-      const client = await new CloudWatchClient({region: "us-east-1"})
+      const client = await new CloudWatchClient({region: "us-east-1"});
+
       const data = await client.send(
         new GetMetricDataCommand({
           Namespace: "AWS/Lambda",
@@ -129,5 +130,7 @@ const getMetric = () => {
   //   `,
   // };
 // };
+
+
 
 getCloudwatchData();
