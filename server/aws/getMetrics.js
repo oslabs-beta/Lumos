@@ -12,7 +12,7 @@ const getMetrics = async (
   metricName,
   period = 60,
   funcName = undefined,
-  metricStat
+  metricStat = "Sum"
 ) => {
   try {
     const client = await new CloudWatchClient({ region: "us-east-1" });
@@ -21,8 +21,8 @@ const getMetrics = async (
       const queries = [];
 
       funcNames.forEach((func, index) => {
-        const query = {
-          Id: `m${index}`,
+        const query = [{
+          Id: `m${Math.floor(Math.random() * 812903819023)}`,
           Label: `Lambda ${metricName} ${func}`,
           MetricStat: {
             Metric: {
@@ -38,7 +38,26 @@ const getMetrics = async (
             Period: `${period}`,
             Stat: `${metricStat}`,
           },
-        };
+        },
+        {
+          Id: `m${Math.floor(Math.random() * 897123891273)}`,
+          Label: `Lambda Errors ${func}`,
+          MetricStat: {
+            Metric: {
+              Namespace: `AWS/Lambda`,
+              MetricName: `Errors`,
+              Dimensions: [
+                {
+                  Name: `FunctionName`,
+                  Value: `${func}`,
+                },
+              ],
+            },
+            Period: `${period}`,
+            Stat: `${metricStat}`,
+          },
+        }
+      ];
         // console.log(query)
         queries.push(query);
       });
@@ -52,19 +71,19 @@ const getMetrics = async (
           new GetMetricDataCommand({
             StartTime: new Date(startTime),
             EndTime: new Date(endTime),
-            MetricDataQueries: [queries[i]],
+            MetricDataQueries: queries[i],
           })
         );
 
         res.push({
-            funcName: queries[i].MetricStat.Metric.Dimensions[0].Value, // label
+            funcName: queries[i][0].MetricStat.Metric.Dimensions[0].Value, // label
             totalInvocations: data.MetricDataResults[0].Values.reduce((a, b) => a + b, 0), // total sum
-            //totalErrors: 0,
+            totalErrors: data.MetricDataResults[1].Values.reduce((a, b) => a + b, 0),
             timestamps: data.MetricDataResults[0].Timestamps,
             funcValues: data.MetricDataResults[0].Values, 
           });
       }
-      console.log('res: ', res);
+      // console.log('res: ', res.MetricDataResults);
       return res;
     } else {
       
@@ -93,7 +112,13 @@ const getMetrics = async (
           ],
         })
       );
-      return {};
+
+      return {
+        funcName: funcName,
+        totalInvocations: data.MetricDataResults[0].Values.reduce((a, b) => a + b, 0),
+        timeStamps: data.MetricDataResults[0].Timestamps,
+        funcValues: data.MetricDataResults[0].Values
+      };
     }
   } catch (err) {
     return err;
@@ -104,9 +129,9 @@ getMetrics(
   "August 1, 2022 15:30:30",
   "August 10, 2022 18:00:00",
   "Invocations",
-  60,
-  'subtract',
-  'Sum'
+  period = 60,
+
+
 );
 
 // // we need this getMetrics in a controller function so we can invoke this from a frontend route

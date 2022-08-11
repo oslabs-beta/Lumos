@@ -23,7 +23,7 @@ const getLambdaFuncs = async () => {
 //   funcName: "", // label
 //   totalInvocations: this.funcValues.reduce((a, b) => a + b, 0), // total sum
 //   totalErrors: 0,
-//   timestamps: [],
+//   timeStamps: [],
 //   funcValues: []
 //   }
 // ]
