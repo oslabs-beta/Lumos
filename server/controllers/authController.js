@@ -4,29 +4,32 @@ const authController = {};
 
 authController.sendToken = async (req, res, next) => {
   const token = jwt.sign(res.locals.password, process.env.JWT_SECRET);
-  return res.send(token);
+  res.cookie('token', token);
+  return next();
 };
 
 authController.verifyToken = async (req, res, next) => {
   try {
-    const header = req.headers['authorization'];
-    const token = header && header.split(' ')[1];
-
-    if (token === null) {
+    const token = req.cookies['token'];
+    if (!token) {
       return next({
         log: 'Error occurred in authController.verifyToken',
         status: 401,
         message: err,
       });
     } else {
-      jwt.verify(token, JWT_SECRET, (error, result) => {
-        if (err) return next(error);
+      jwt.verify(token, process.env.JWT_SECRET, (error, result) => {
+        if (error) return next(error);
         req.user = result;
         return next();
       });
     }
   } catch (err) {
-    return next(err);
+    return next({
+      log: 'Error occurred in authController.verifyToken',
+      status: 401,
+      message: 'You are not authorized to perform this action',
+    });
   }
 };
 

@@ -10,7 +10,9 @@ userController.createUser = async (req, res, next) => {
       if (err) return err;
       else {
         const query = `INSERT INTO users (email, password, firstname, lastname) VALUES ('${email}', '${hash}', '${firstname}', '${lastname}')`;
-        db.query(query).then(() => next());
+        db.query(query)
+          .then(() => next())
+          .catch((err) => next(err));
       }
     });
   } catch (err) {
