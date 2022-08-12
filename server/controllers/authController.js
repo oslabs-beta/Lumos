@@ -13,9 +13,9 @@ authController.verifyToken = async (req, res, next) => {
     const token = req.cookies['token'];
     if (!token) {
       return next({
-        log: 'Error occurred in authController.verifyToken',
+        log: 'authController.verifyToken: No token exists',
         status: 401,
-        message: err,
+        message: 'You are not authorized to perform this action',
       });
     } else {
       jwt.verify(token, process.env.JWT_SECRET, (error, result) => {
