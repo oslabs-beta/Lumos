@@ -12,11 +12,16 @@ userController.createUser = async (req, res, next) => {
         const query = `INSERT INTO users (email, password, firstname, lastname) VALUES ('${email}', '${hash}', '${firstname}', '${lastname}')`;
         db.query(query)
           .then(() => next())
-          .catch((err) => next(err));
+          .catch(() =>
+            next({
+              log: 'Cannot create user',
+              status: 400,
+              message: 'Cannot create user',
+            }),
+          );
       }
     });
   } catch (err) {
-    console.log(err);
     return next({
       log: 'Error occurred in userController.createUser',
       status: 400,
