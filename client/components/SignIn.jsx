@@ -1,9 +1,15 @@
 /* eslint-disable linebreak-style */
-import React, { useState, setOpen } from "react";
+import React, { useState, setOpen, useContext, useEffect } from "react";
 import { Button, TextField, Modal } from "@mui/material";
+import { InfoContext } from "../containers/MainContainer.jsx";
+// import GetAllMetrics from './fetchMetrics.jsx'
 // import ModalUnstyled from '@mui/base/ModalUnstyled'
 
 export default function Sign() {
+  //use effect hook on successful login get all metrics
+  const [userInfo, setUserInfo] = useContext(InfoContext);
+  const [metrics, setMetrics] = useState([]);
+
   //modal state
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -14,32 +20,81 @@ export default function Sign() {
     email: "",
     password: "",
   });
+
   //register user handle change event
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-  //register user on submit
+
+  // onclick event make a post request for login
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("this is what you're getting back: ", data);
-    window.alert(`You're signed in ${data.email}`);
-    handleClose();
+    console.log("Sign in data: ", data);
     //make a post request to somewhere with this data
-    // const result = { email, password, firstname, lastname, arn }
+    const { email, password } = data;
 
-    /* fetch('url', {
-    method: "POST",
-    headers: { "Content-Type: 'application/json" },
-    body: JSON.stringify(result)
-  })
-  
-  */
+    const result = {
+      email: email,
+      password: password,
+    };
+    console.log(result);
+
+    fetch("/user/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(result),
+    })
+      .then((response) => response.text())
+      .then((loginData) => {
+        console.log('LOGIN DATA ', loginData);
+        loginData = true;
+        console.log(loginData == true);
+        if (loginData == true) {
+          console.log('login data: true?')
+          window.alert(`You're signed in ${data.email}`);
+          //set flag to true
+          setUserInfo({
+            loggedIn: true,
+            user_name: "",
+            first_name: "",
+            user_id: "",
+            lambdaFuncs: [{ funcName: "", totalInvocations : 0, totalErrors: 0, timeStamps: [], funcValues: [] }],
+            lambdaActiveInvocations: 0,
+            lambdaTotalErrors: 0,
+            lambdaAvgThrottle: 0, 
+            lambdaAvgDuration: 0 
+          });
+          //run use effect to make a get request for all the metrics
+          // const url = "/metric";
+          // const fetchData = async () => {
+          //     try {
+          //         const response = await fetch(url);
+          //         const json = await response.json();
+          //         console.log('json: ', json , 'other : ',json.data);
+          //         setMetrics(json.data);
+          //         console.log('UPDATED STATE ', userInfo)
+          //     } catch (error) {
+          //         console.log("error", error);
+          //     }
+          // };
+          // fetchData();
+            
+
+          
+        } else {
+          window.alert(
+            "Email is not registered or the password is incorrect, please try again."
+          );
+        }
+      })
+      .catch((err) => console.log(err));
+
+    handleClose();
   };
-  // onclick event make a post request for register
 
   return (
     <>
-      <Button className='LumosButton' onClick={handleOpen}>
+      <Button id='signin' className='LumosButton loginButton' onClick={handleOpen}>
         {" "}
         Login{" "}
       </Button>
@@ -67,7 +122,7 @@ export default function Sign() {
             label='password'
             variant='outlined'
           />
-          <Button variant='contained' onClick={submitHandler}>
+          <Button variant='contained loginButton' onClick={submitHandler}>
             Sign In
           </Button>
         </form>

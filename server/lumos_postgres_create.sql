@@ -8,10 +8,9 @@ SET row_security = off;
 CREATE TABLE users (
 	"_id" serial NOT NULL,
 	"email" varchar NOT NULL UNIQUE,
-    "password" varchar NOT NULL,
-    "firstname" varchar NOT NULL,
-    "lastname" varchar NOT NULL,
-    "arn" varchar UNIQUE,
+  "password" varchar NOT NULL,
+  "firstname" varchar NOT NULL,
+  "lastname" varchar NOT NULL,
 
 	CONSTRAINT "users_pk" PRIMARY KEY ("_id") 
     
@@ -26,4 +25,5 @@ CREATE TABLE users (
 psql -d <DATABASE URL> -f lumos_postgres_create.sql
 */
 
--- psql -d postgres://smgvcfwn:YJbyjMDO2vDgAQTpXt7ZXIw8eq-K05He@rajje.db.elephantsql.com/smgvcfwn -f server/lumos_postgres_create.sql
+--  psql -d postgres://hqtdaxpj:QBKrOx1TsD79gVw-GSLQ89b335iqReba@chunee.db.elephantsql.com/hqtdaxpj -f server/lumos_postgres_create.sql
+

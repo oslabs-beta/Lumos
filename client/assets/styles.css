@@ -23,13 +23,12 @@
 .Header,
 .Usage,
 .Charts,
-/* .Errors, */
 .Sidebar,
 .Footer {
   font-family: Roboto;
   font-weight: 300;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 1px;
   display: grid;
   justify-content: center;
   align-items: center;
@@ -63,6 +62,22 @@
   align-items: center;
 }
 
+.LumosLogoBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.LumosLogo {
+  height: 100%;
+  width: 150%;
+}
+
+.LumosLogoBox img {
+  max-height: 70px;
+  max-width: 100px;
+}
+
 .Login {
   background: #efc9ef;
   padding: 10px;
@@ -74,6 +89,11 @@
   border-radius: 15px;
 }
 
+.loginButton {
+  background: #d86613 !important;
+  color: white !important;
+}
+
 .ButtonContainer {
   display: flex;
   justify-self: flex-end;
@@ -81,7 +101,7 @@
 
 .LumosButton {
   font-family: Roboto !important;
-  font-weight: 300 !important;
+  font-weight: 400 !important;
   letter-spacing: 2px !important;
   background-color: white !important;
   display: grid !important;
@@ -91,12 +111,17 @@
   margin-right: 20px !important;
   border-radius: 25px !important;
   padding: 0px 40px !important;
-  box-shadow: 1px 0px 20px #c977df30;
+  box-shadow: 1px 0px 20px #00000008;
+  color: #4d4d4d !important;
 }
 
 .LumosButton:hover {
-  box-shadow: 1px 0px 20px #c977df8a;
+  box-shadow: 1px 0px 20px #d8661394;
   transition: 1.5s;
+}
+
+.timeButtonContainer {
+  display: flex;
 }
 
 .LoginModal {
@@ -134,7 +159,7 @@
   font-family: Roboto;
   font-weight: 300;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 1px;
   display: grid;
   justify-content: center;
   align-items: center;
@@ -145,7 +170,7 @@
   font-family: Roboto;
   font-weight: 300;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 1px;
   display: grid;
   justify-content: center;
   align-items: center;
@@ -178,6 +203,11 @@
   align-items: stretch;
   padding: 2px;
 }
+
+.statsNumber {
+  font-size: 28px;
+}
+
 .cardIcon {
   grid-area: cardIcon;
 }
@@ -206,6 +236,7 @@
 
 .errorsContainer {
   padding: 20px;
+  /* overflow: scroll !important; */
 }
 
 .errHeader {
@@ -221,7 +252,7 @@
 .Errors.children {
   background-color: whitesmoke;
   height: 100%;
-  overflow: scroll !important;
+  /* overflow: scroll !important; */
 }
 
 .ErrorsChildrenContainer {
@@ -263,9 +294,39 @@
 
 .Sidebar {
   grid-area: Sidebar;
+  align-items: baseline;
+  /* overflow: scroll !important;
+  height: 104.5% !important; */
 }
+.sidebarLambda {
+  padding-top: 20px;
+}
+
+.sidebarIcon {
+  max-width: 30%;
+  margin: 25px auto;
+  border-radius: 50px;
+  padding: 10px 12px;
+  box-shadow: 1px 0px 15px #00000015;
+}
+
+.sidebarIcon img {
+  max-height: 35px;
+  margin: auto;
+}
+
+.sidebarMainIcon {
+  background: #d86613;
+  padding: 16px 13px;
+  border-radius: 50px;
+  text-align: center;
+  width: 30%;
+  margin: 10px auto 20px auto;
+}
+
 .Footer {
   grid-area: Footer;
+  font-size: 12px;
 }
 
 /* Metric Cards CSS */

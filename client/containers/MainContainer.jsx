@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import React from 'react';
+import React, {useState, useEffect, createContext,useContext} from 'react';
 import {
   Grid, Box,
 } from '@mui/material';
@@ -16,36 +16,71 @@ import Errors from '../components/Errors.jsx';
 import '../assets/styles.css';
 // import '../assets/outerContainer.css';
 
-function MainContainer() {
+export const InfoContext = createContext();
 
-  const innerGridContainer = {
-    // display: 'grid',
-    // gridTemplateColumns: '1fr 1fr 1fr 1fr',
-    // gridTemplateRows: '50% 50%',
-    // gap: '20px',
-    // height: '87vh',
-    // padding: '20px',
-    // gridTemplateAreas: ` 
-    //   'Profile Monthly Category Transactions'
-    //   'CashFlow Annual Annual Annual'
-    //   `,
-    // gridArea: 'CardContainer',
-    // overFlowY: 'auto',
-  };
+function MainContainer() {
+  // const [userInfo, setUserInfo] = useContext(InfoContext);
+
+  const [userInfo, setUserInfo] = useState({
+    loggedIn: false,
+    user_name: "",
+    first_name: "",
+    user_id: "",
+    lambdaFuncs: [{ funcName: "", totalInvocations : 0, totalErrors: 0, timeStamps: [], funcValues: [] }],
+    lambdaActiveInvocations: 0,
+    lambdaTotalErrors: 0,
+    lambdaAvgThrottle: 0, 
+    lambdaAvgDuration: 0 
+  });
+
+  // const allLambdaFuncs = [
+//   {
+//   funcName: "", // label
+//   totalInvocations: this.funcValues.reduce((a, b) => a + b, 0), // total sum
+//   totalErrors: 0,
+//   timestamps: [],
+//   funcValues: []
+//   }
+// ]
+
+  // Metrics card
+    //isLoggedIn: false;
+    //totalInvocation
+    //totalErrors
+    //throttle
+    //Duration
+    //Invocation percentage
+    //Error percentage
+    //Invocation percentage
+    //Duration percentage
+  // Errors log
+    // label
+    // status
+    // value
+    // timestamp
+  // Donut chart
+    // all lambda functions
+  // Line chart
+    // all lambda functions
+  useEffect(() => console.log(userInfo), [userInfo]);
 
   return (
     //implement grid template outer container
     <Grid container className="outerContainer">
-      {/* <InfoContext.Provider value={[userInfo, setUserInfo]}> */}
-      <Sidebar item />
+      <InfoContext.Provider value={[userInfo, setUserInfo]}>
       <Nav item />
-      <Header item />
-      <Metrics item/>
-      <Usage item  />
-      <Charts item />
-      <Errors item />
-      <Footer item />
-      {/* </InfoContext.Provider> */}
+      {/* {userInfo.loggedIn === true &&
+      <> */}
+        <Sidebar item />
+        <Header item />
+        <Metrics item />
+        <Usage item  />
+        <Charts item />
+        <Errors item />
+        <Footer item />
+      {/* </>
+    } */}
+      </InfoContext.Provider>
     </Grid>
   );
 }

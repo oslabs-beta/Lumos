@@ -16,26 +16,38 @@ export default function Login() {
     firstname: "",
     lastname: "",
   });
+
   //register user handle change event
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
   //register user on submit
   const submitHandler = (e) => {
     e.preventDefault();
     console.log("this is what you're getting back: ", data);
-    window.alert(`Thanks for registering ${data.firstname}`);
-    handleClose();
+    window.alert(`Thanks for registering ${data.firstname} click anywhere to close`);
+    
     //make a post request to somewhere with this data
-    // const result = { email, password, firstname, lastname, arn }
+    const { email, password, firstname, lastname } = data
 
-    /* fetch('url', {
-    method: "POST",
-    headers: { "Content-Type: 'application/json" },
-    body: JSON.stringify(result)
-  })
-  
-  */
+    const result = {
+      email: email,
+      password: password,
+      firstname: firstname,
+      lastname: lastname
+    }
+    console.log(result)
+    
+    // post to user endPoint passing result to DB
+      fetch('/user/register', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(result)
+    }).then(() => console.log('added'))
+    // */
+      
+ handleClose();
   };
   // onclick event make a post request for register
 

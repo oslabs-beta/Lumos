@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
-// import { InfoContext } from "../containers/MainContainer.jsx";
+import { InfoContext } from "../../containers/MainContainer.jsx";
+
 import { Paper, Box, Typography } from "@mui/material";
 import {
   Chart as ChartJS,
@@ -34,51 +35,103 @@ const options = {
   },
 };
 
-const labels = [
-  "Day 1",
-  "Day 2",
-  "Day 3",
-  "Day 4",
-  "Day 5",
-  "Day 6",
-  "Day 7",
-  "Day 8",
-  "Day 9",
-  "Day 10",
-  "Day 11",
-  "Day 12",
-  "Day 13",
-  "Day 14"
-];
+// x-axis, this needs to be updated depending on the .length of the timestamps array
+
+
+// this all gets done AFTER state object has been populated from Login's successful verification
+// we'll need 3 buttons created at the Header for 24 Hour / 7 Day / 30 Day time frames that each make fetch calls with different start/end dates
+
+//bet
 
 function Latency() {
-  // const [userInfo, setUserInfo] = useContext(InfoContext);
+  const [userInfo, setUserInfo] = useContext(InfoContext);
 
-  const data = {
+  const labels = [
+    // "8/5", // 50 invocations
+    // "8/6",
+    // "8/7",
+    // "8/8",
+    // "8/9",
+    // "8/10",
+    // "8/11"
+  ];
+//lambdaMetrics: [], // { invocations: "",
+
+const data = {
     labels,
     datasets: [
-      {
-        label: "Lambda 1",
-        data: [300, 510, 124, 337, 710, 61, 97, 184, 517, 334, 414, 41, 941, 347],
-        borderColor: "rgba(123, 31, 162)",
-        backgroundColor: "rgba(123, 31, 162, 0.5)",
-        borderWidth: 1,
-      },
-      {
-        label: "Lambda 2",
-        data: [145, 234, 415, 948, 454, 157, 548, 687, 425, 91, 514, 487, 148, 912],
-        borderColor: "rgb(255, 125, 69)",
-        backgroundColor: "rgb(255, 125, 69, 0.5)",
-        borderWidth: 1,
-      },
+      // new datasets object needs to be created depending on how many Lambda funcs we get back
+      // {
+      //   // update this name to lambda name
+      //   label: userInfo.lambdaFuncs[1].funcName,
+      //   // we gotta update array of values here
+      //   data: userInfo.lambdaFuncs[1].funcValues,
+      //   // let's change these weird ass colors xD okay;) ( ͡° ͜ʖ ͡°)
+      //   borderColor: "rgba(123, 31, 162)",
+      //   backgroundColor: "rgba(123, 31, 162, 0.5)",
+      //   borderWidth: 1,
+      // },
+      // {
+      //   label: "us_east_func_multiply",
+      //   // ( ͡° ͜ʖ ͡°)
+      //   data: [1, 2, 4, 9, 4, 1, 5, 6, 4, 9, 5, 4, 1, 9],
+      //   borderColor: "rgb(255, 125, 69)",
+      //   backgroundColor: "rgb(255, 125, 69, 0.5)",
+      //   borderWidth: 1,
+      // },
     ],
   };
 
-  // useEffect(() => { }, [userInfo]);
+  const timeStamp2 = [];
+  const data2 = [];
+
+  userInfo.lambdaFuncs.forEach((el) => {
+
+    const borderColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+    const backgroundColor = `rgba(${borderColor.slice(4,borderColor.length - 1)}, 0.5)`;
+
+    timeStamp2.push(el.timestamps);
+
+    data.datasets.push({
+      label: el.funcName,
+      data: el.funcValues,
+      borderColor: borderColor,
+      backgroundColor: backgroundColor,
+      borderWidth: 1,
+    })
+  })
+
+  console.log('timeStamp: ', timeStamp2)
+  console.log('funcValue: ', userInfo.lambdaFuncs);
+
+  let timeStamp3 = timeStamp2.flat(Infinity)
+  console.log('timeStamp3: ', timeStamp3.sort());
+
+  timeStamp3.forEach((el) => {
+
+    if (el) {
+      if (el[5] < 1 && !labels.includes((el.slice(6, 16)).replace('T', ',').replace('-', '/'))) {
+        labels.push((el.slice(6, 16)).replace('T', ',').replace('-', '/'))
+      }
+
+      else if (el[5] >= 1 && !labels.includes((el.slice(5, 16)).replace('T', ',').replace('-', '/'))) {
+        labels.push((el.slice(5, 16)).replace('T', ',').replace('-', '/'))
+      }
+    }    // labels.push(el.slice(0, 9));
+  });
+
+  console.log('labels: ', labels);
+  console.log('data.datasets: ', data.datasets)
+
+  // console.log('timeStamp2: ', timeStamp2);
+  // console.log('test inside of latency: ', data2);
+  // here is where we update 'data' array of lambda values into our y-axis of invocation counts
+
+  useEffect(() => { }, [userInfo]);
 
   // if (userInfo.transactions.length > 0 && userInfo.incomeArray.length > 0) {
   //   // run through transaction array
-  //   for (let trans of userInfo.transactions) {
+  //   for (let trans of userInfo.lambdaMetrics) {
   //     const month = moment(trans.dates).format("MMMM");
   //     const index = labels.indexOf(month);
   //     const amount = parseFloat(trans.amount.slice(1).split(",").join(""));

@@ -1,41 +1,43 @@
 import React, { useContext } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-// import { InfoContext } from "../containers/MainContainer.jsx";
+import { InfoContext } from "../../containers/MainContainer.jsx";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function UsageDoughnut() {
-  // const [userInfo, setUserInfo] = useContext(InfoContext);
+  const [userInfo, setUserInfo] = useContext(InfoContext);
+
+  let arrayValues = [];
+
+  userInfo.lambdaFuncs.forEach((el) => {
+    arrayValues.push(el.funcValues);
+  })
+
+  console.log('arrayValues: ', arrayValues);
 
   const data = {
     labels: [
-      "Lambda 1",
-      "Lambda 2",
-      "Lambda 3",
-      "Lambda 4",
-      "Lambda 5",
-      "Lambda 6",
+      "us_east_add",
+      "us_east_cool",
+      "us_east_count",
+      "us_east_subtract"
     ],
     datasets: [
       {
         label: "# of Invocations",
-        data: [5, 4, 8, 3, 1, 9],
+        data: arrayValues,
         backgroundColor: [
-          "rgba(112, 104, 244, 0.4)",
-          "rgba(123, 31, 162, 0.4)",
-          "rgba(162, 31, 118, 0.4)",
-          "rgba(255, 100, 180, 0.4)",
-          "rgba(255, 125, 69, 0.4)",
-          "rgba(255, 217, 74, 0.4)",
+          "#d86613",
+          "#DC7521",
+          "#E0852E",
+          "#E4943C"
         ],
         borderColor: [
-          "rgba(112, 104, 244, 1)",
-          "rgba(123, 31, 162, 1)",
-          "rgba(162, 31, 118, 1)",
-          "rgba(255, 100, 180, 1)",
-          "rgba(255, 125, 69, 1)",
-          "rgba(255, 217, 74, 1)",
+          "#d86613",
+          "#DC7521",
+          "#E0852E",
+          "#E4943C"
         ],
         borderWidth: 1,
       },

@@ -1,3 +1,38 @@
+// const {
+//   CloudWatchLogsClient,
+//   GetLogEventsCommand,
+//   DescribeLogGroupsCommand,
+//   DescribeLogStreamsCommand,
+// } = require('@aws-sdk/client-cloudwatch-logs');
+
+// const getLogs = async (logGroup = undefined, limit = 50) => {
+//   try {
+//     const client = new CloudWatchLogsClient({ region: 'us-east-1' });
+//     if (!logGroup) {
+//       // Get a list of user's log groups
+//       const logGroupsList = await client.send(
+//         new DescribeLogGroupsCommand({ limit }),
+//       );
+//       // Parse data to include only names of log groups
+//       const logGroups = logGroupsList.logGroups.map((log) => log.logGroupName);
+//       // Get log stream data for each log group
+//       // FINISH THIS!
+//       const logStreams = logGroups.map((group) =>
+//         client.send(DescribeLogStreamsCommand({ logGroupName: group })),
+//       );
+//     } else {
+//       const stream = await client.send(
+//         new DescribeLogStreamsCommand({
+//           logGroupName: logGroup,
+//         }),
+//       );
+//       return stream;
+//     }
+//   } catch (err) {
+//     return err;
+//   }
+// };
+
 const {
   CloudWatchLogsClient,
   CreateLogStreamCommand,

@@ -7,7 +7,7 @@ function Charts() {
   return (
     <Box className="Charts">
     {/* <div className="cardTitle">Usage</div> */}
-    <div className="latencyChartContainer">
+    <div className="latencyChartContainer"> {/* not really latency, just invocation count */}
     <Latency />
     </div>
   </Box>

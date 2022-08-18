@@ -2,38 +2,44 @@
 import React from 'react';
 import { Box, Button, Drawer, Typography} from '@mui/material';
 
+// lottie icons
+import Lottie from "lottie-react";
+import dashboardIcon from "../assets/lotties/dashboardIcon.json";
+import alertIcon from "../assets/lotties/alertIcon.json";
+import logsIcon from "../assets/lotties/logsIcon.json";
+
 
 function Sidebar() {
   
   return (
     <Box className="Sidebar">
 
-        <div className="sidebar.lambda">
-          <span>
-            Lambda
-          </span>
-          <div>
-            Dashboard
+        <div className="sidebarLambda">
+          <div className="sidebarIcon sidebarMainIcon">
+            <img src="https://i.ibb.co/w6Dvhn5/AWS-Lambda-Icon.png" />
           </div>
-          <div>
-            Alerts
+          <div className="sidebarIcon">
+          <Lottie animationData={dashboardIcon} loop={true} />
           </div>
-          <div>
-            Logs
+          <div className="sidebarIcon">
+          <Lottie animationData={alertIcon} loop={false} />
+          </div>
+          <div className="sidebarIcon">
+          <Lottie animationData={logsIcon} loop={false} />
           </div>
         </div>
-        <div className="sidebar.ec2">
-          <span>
-            EC2
-          </span>
-          <div>
-            Dashboard
+        <div className="sidebarEC2">
+          <div className="sidebarIcon sidebarMainIcon">
+          <img src="https://i.ibb.co/YZXxZcC/AWS-EC2-Icon.png" />
           </div>
-          <div>
-            Alerts
+          <div className="sidebarIcon">
+          <Lottie animationData={dashboardIcon} loop={false} />
           </div>
-          <div>
-            Logs
+          <div className="sidebarIcon">
+          <Lottie animationData={alertIcon} loop={false} />
+          </div>
+          <div className="sidebarIcon">
+          <Lottie animationData={logsIcon} loop={false} />
           </div>
         </div>
     </Box>
