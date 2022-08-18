@@ -174,7 +174,7 @@ const getMetrics = async (
       };
     }
   } catch (err) {
-    return next(err);
+    return err;
   }
 };
 
