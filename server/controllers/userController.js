@@ -1,108 +1,112 @@
-const db = require("../models/UserModels");
+const db = require('../models/UserModels');
+const bcrypt = require('bcryptjs');
 
 const userController = {};
 
 userController.createUser = async (req, res, next) => {
   try {
     const { email, password, firstname, lastname } = req.body;
-
-    const query = `INSERT INTO users (email, password, firstname, lastname) VALUES ('${email}', '${password}', '${firstname}', '${lastname}')`;
-
-    const table = await db.query(query);
-
-    console.log('table: ', table)
-
-    // res.locals.table = table;
-
-    return next();
+    bcrypt.hash(password, 10, (err, hash) => {
+      if (err) return err;
+      else {
+        const query = `INSERT INTO users (email, password, firstname, lastname) VALUES ('${email}', '${hash}', '${firstname}', '${lastname}')`;
+        db.query(query)
+          .then(() => next())
+          .catch(() =>
+            next({
+              log: 'Cannot create user',
+              status: 400,
+              message: 'Cannot create user',
+            }),
+          );
+      }
+    });
   } catch (err) {
-    console.log(err);
     return next({
-      log: "Error occurred in userController.createUser",
+      log: 'Error occurred in userController.createUser',
       status: 400,
-      message: { err: "An error occurred" },
+      message: err,
     });
   }
 };
 
 userController.verifyUser = async (req, res, next) => {
-  console.log('inside this shit')
   try {
-    console.log('entered verify user: ')
-    const {email, password} =req.body
-    const query = `SELECT email, password FROM users WHERE email='${email}' AND password='${password}'`
-    const table = await db.query(query)
-    console.log('table: ', table.rowCount);
+    const { email, password } = req.body;
 
-    if (table.rowCount === 1) {
-      res.locals.verifiedUser = "true";
-    }
-
-    else {
-      res.locals.verifiedUser = "false";
-    }
-    return next()
-
+    const query = `SELECT email, password FROM users WHERE email='${email}'`;
+    db.query(query)
+      .then((data) => {
+        bcrypt.compare(password, data.rows[0].password, (err, result) => {
+          if (result) {
+            res.locals.password = result;
+            res.locals.verifiedUser = true;
+            return next();
+          } else {
+            res.locals.verifiedUser = false;
+            return next({
+              log: 'Error occurred in userController.verifyUser',
+              status: 401,
+              message: err,
+            });
+          }
+        });
+      })
+      .catch((err) => next(err));
   } catch (err) {
-    return next(err)
+    return next(err);
   }
 };
 
 module.exports = userController;
 
-
-// const db = require('../models/UserModels');
-// const bcrypt = require('bcryptjs');
+// const db = require("../models/UserModels");
 
 // const userController = {};
- 
+
 // userController.createUser = async (req, res, next) => {
 //   try {
 //     const { email, password, firstname, lastname } = req.body;
-//     bcrypt.hash(password, 10, (err, hash) => {
-//       if (err) return err;
-//       else {
-//         const query = `INSERT INTO users (email, password, firstname, lastname) VALUES ('${email}', '${hash}', '${firstname}', '${lastname}')`;
-//         db.query(query);
-//         return next();
-//       }
-//     });
+
+//     const query = `INSERT INTO users (email, password, firstname, lastname) VALUES ('${email}', '${password}', '${firstname}', '${lastname}')`;
+
+//     const table = await db.query(query);
+
+//     console.log('table: ', table)
+
+//     // res.locals.table = table;
+
+//     return next();
 //   } catch (err) {
 //     console.log(err);
 //     return next({
-//       log: 'Error occurred in userController.createUser',
+//       log: "Error occurred in userController.createUser",
 //       status: 400,
-//       message: err,
+//       message: { err: "An error occurred" },
 //     });
 //   }
 // };
 
 // userController.verifyUser = async (req, res, next) => {
-//   console.log('inside this shit');
+//   console.log('inside this shit')
 //   try {
-//     console.log('entered verify user: ');
-//     const { email, password } = req.body;
+//     console.log('entered verify user: ')
+//     const {email, password} =req.body
+//     const query = `SELECT email, password FROM users WHERE email='${email}' AND password='${password}'`
+//     const table = await db.query(query)
+//     console.log('table: ', table.rowCount);
 
-//     const query = `SELECT email, password FROM users WHERE email='${email}'`;
-//     const res = db.query(query);
+//     if (table.rowCount === 1) {
+//       res.locals.verifiedUser = "true";
+//     }
 
-//     bcrypt.compare(res.rows.password, hash, (err, result) => {
-//       if (result) {
-//         res.locals.verifiedUser = true;
-//         return next();
-//       } else {
-//         res.locals.password = hash;
-//         res.locals.verifiedUser = false;
-//         return next({
-//           log: 'Error occurred in userController.verifyUser',
-//           status: 401,
-//           message: err,
-//         });
-//       }
-//     });
+//     else {
+//       res.locals.verifiedUser = "false";
+//     }
+//     return next()
 
 //   } catch (err) {
-//     return next(err);
+//     return next(err)
 //   }
 // };
 

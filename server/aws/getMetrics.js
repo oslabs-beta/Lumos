@@ -1,33 +1,29 @@
 const {
-  ListMetricsCommand,
   GetMetricDataCommand,
-  GetMetricStatisticsCommand,
   CloudWatchClient,
-} = require("@aws-sdk/client-cloudwatch");
-const getLambdaFuncs = require("./getLambdaFuncs.js");
+} = require('@aws-sdk/client-cloudwatch');
+const getLambdaFuncs = require('./getLambdaFuncs.js');
 
 const getMetrics = async (
   startTime,
   endTime,
-  metricName,
   period = 60,
   funcName = undefined,
-  metricStat = "Sum"
 ) => {
   try {
-    const client = await new CloudWatchClient({ region: "us-east-1" });
+    const client = new CloudWatchClient({ region: 'us-east-1' });
     if (funcName === undefined) {
       const funcNames = await getLambdaFuncs();
-      const queries = [];
-
-      funcNames.forEach((func, index) => {
-        const query = [{
-          Id: `m${Math.floor(Math.random() * 812903819023)}`,
-          Label: `Lambda ${metricName} ${func}`,
+      const queries = funcNames.map((func) => [
+        {
+          Id: `id${Math.floor(Math.random() * 812903819023)}`,
+          Label: `Lambda Invocations ${func}`,
           MetricStat: {
+            Period: `${period}`,
+            Stat: 'Average',
             Metric: {
               Namespace: `AWS/Lambda`,
-              MetricName: `${metricName}`,
+              MetricName: 'Invocations',
               Dimensions: [
                 {
                   Name: `FunctionName`,
@@ -35,95 +31,153 @@ const getMetrics = async (
                 },
               ],
             },
-            Period: `${period}`,
-            Stat: `${metricStat}`,
           },
         },
         {
-          Id: `m${Math.floor(Math.random() * 897123891273)}`,
+          Id: `id${Math.floor(Math.random() * 897123891273)}`,
           Label: `Lambda Errors ${func}`,
           MetricStat: {
+            Period: `${period}`,
+            Stat: 'Average',
             Metric: {
-              Namespace: `AWS/Lambda`,
-              MetricName: `Errors`,
+              Namespace: 'AWS/Lambda',
+              MetricName: 'Errors',
               Dimensions: [
                 {
-                  Name: `FunctionName`,
+                  Name: 'FunctionName',
                   Value: `${func}`,
                 },
               ],
             },
-            Period: `${period}`,
-            Stat: `${metricStat}`,
           },
-        }
-      ];
-        // console.log(query)
-        queries.push(query);
-      });
+        },
+        {
+          Id: `id${Math.floor(Math.random() * 8929031920)}`,
+          Label: `Lambda Throttles ${func}`,
+          MetricStat: {
+            Period: `${period}`,
+            Stat: 'Average',
+            Metric: {
+              Namespace: 'AWS/Lambda',
+              MetricName: 'Throttles',
+              Dimensions: [
+                {
+                  Name: 'FunctionName',
+                  Value: `${func}`,
+                },
+              ],
+            },
+          },
+        },
+        {
+          Id: `id${Math.floor(Math.random() * 981723891)}`,
+          Label: `Lambda Duration ${func}`,
+          MetricStat: {
+            Period: `${period}`,
+            Stat: 'Average',
+            Metric: {
+              Namespace: 'AWS/Lambda',
+              MetricName: 'Duration',
+              Dimensions: [
+                {
+                  Name: 'FunctionName',
+                  Value: `${func}`,
+                },
+              ],
+            },
+          },
+        },
+      ]);
 
-      // console.log(queries);
-
-      const res = [];
+      const data = [];
 
       for (let i = 0; i < queries.length; i += 1) {
-        const data = await client.send(
+        const queriedData = await client.send(
           new GetMetricDataCommand({
             StartTime: new Date(startTime),
             EndTime: new Date(endTime),
             MetricDataQueries: queries[i],
-          })
+          }),
         );
 
-        res.push({
-            funcName: queries[i][0].MetricStat.Metric.Dimensions[0].Value, // label
-            totalInvocations: data.MetricDataResults[0].Values.reduce((a, b) => a + b, 0), // total sum
-            totalErrors: data.MetricDataResults[1].Values.reduce((a, b) => a + b, 0),
-            timestamps: data.MetricDataResults[0].Timestamps,
-            funcValues: data.MetricDataResults[0].Values, 
-          });
+        data.push({
+          funcName: queries[i][0].MetricStat.Metric.Dimensions[0].Value,
+          totalInvocations: queriedData.MetricDataResults[0].Values.reduce(
+            (a, b) => a + b,
+            0,
+          ),
+          totalErrors: queriedData.MetricDataResults[1].Values.reduce(
+            (a, b) => a + b,
+            0,
+          ),
+          totalDuration: queriedData.MetricDataResults[2].Values.reduce(
+            (a, b) => a + b,
+            0,
+          ),
+          totalCost:
+            queriedData.MetricDataResults[0].Values.reduce((a, b) => a + b, 0) *
+              0.2 +
+            queriedData.MetricDataResults[0].Values.reduce((a, b) => a + b, 0) *
+              0.0000166667,
+          timeStamps: queriedData.MetricDataResults[0].Timestamps,
+        });
       }
-      // console.log('res: ', res.MetricDataResults);
-      return res;
+
+      return data;
     } else {
-      
-      const data = await client.send(
+      const queriedData = await client.send(
         new GetMetricDataCommand({
-          StartTime: new Date(startTime), //new Date("August 6, 2022 13:30:30"), <- needs variable where we can send in a start date from frontend
-          EndTime: new Date(endTime), //new Date("August 6, 2022 16:00:00"),<- needs variable where we can send in a start date from frontend
+          StartTime: new Date(startTime),
+          EndTime: new Date(endTime),
           MetricDataQueries: [
             {
-              Id: "test",
+              Id: Math.floor(Math.random() * 64544324),
               MetricStat: {
+                Period: period,
+                Stat: metricStat,
                 Metric: {
                   MetricName: metricName,
-                  Namespace: "AWS/Lambda",
+                  Namespace: 'AWS/Lambda',
                   Dimensions: [
                     {
-                      Name: "FunctionName",
+                      Name: 'FunctionName',
                       Value: funcName,
                     },
                   ],
                 },
-                Period: period,
-                Stat: metricStat,
               },
             },
           ],
-        })
+        }),
       );
 
       return {
-        funcName: funcName,
-        totalInvocations: data.MetricDataResults[0].Values.reduce((a, b) => a + b, 0),
-        timeStamps: data.MetricDataResults[0].Timestamps,
-        funcValues: data.MetricDataResults[0].Values
+        funcName: queries[i][0].MetricStat.Metric.Dimensions[0].Value,
+        totalInvocations: queriedData.MetricDataResults[0].Values.reduce(
+          (a, b) => a + b,
+          0,
+        ),
+        totalErrors: queriedData.MetricDataResults[1].Values.reduce(
+          (a, b) => a + b,
+          0,
+        ),
+        totalDuration: queriedData.MetricDataResults[2].Values.reduce(
+          (a, b) => a + b,
+          0,
+        ),
+        totalCost:
+          queriedData.MetricDataResults[0].Values.reduce((a, b) => a + b, 0) *
+            0.2 +
+          queriedData.MetricDataResults[0].Values.reduce((a, b) => a + b, 0) *
+            0.0000166667,
+        timeStamps: queriedData.MetricDataResults[0].Timestamps,
       };
     }
   } catch (err) {
-    return err;
+    return next(err);
   }
 };
+
 
 getMetrics(
   "August 1, 2022 15:30:30",
@@ -206,5 +260,6 @@ getMetrics(
 // date.setHours(5)
 
 // console.log(date)
+
 
 module.exports = getMetrics;
