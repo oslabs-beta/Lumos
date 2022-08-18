@@ -24,14 +24,12 @@ metricController.getMetrics = async (req, res, next) => {
     // console.log('FINAL OBJECT ', result);
     return next();
   } catch (err) {
-    console.log('error: ', err);
+    return next({
+      log: 'Error occurred in metricController.getMetrics',
+      status: 401,
+      message: err,
+    });
   }
-};
-
-metricController.consoleLog = (req, res, next) => {
-  console.log('entered consoleLOg');
-
-  return next();
 };
 
 module.exports = metricController;

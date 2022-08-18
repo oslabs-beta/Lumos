@@ -12,11 +12,11 @@ userController.createUser = async (req, res, next) => {
         const query = `INSERT INTO users (email, password, firstname, lastname) VALUES ('${email}', '${hash}', '${firstname}', '${lastname}')`;
         db.query(query)
           .then(() => next())
-          .catch(() =>
+          .catch((err) =>
             next({
               log: 'Cannot create user',
               status: 400,
-              message: 'Cannot create user',
+              message: err,
             }),
           );
       }
@@ -52,7 +52,13 @@ userController.verifyUser = async (req, res, next) => {
           }
         });
       })
-      .catch((err) => next(err));
+      .catch((err) =>
+        next({
+          log: 'Error occurred in userController.verifyUser',
+          status: 401,
+          message: err,
+        }),
+      );
   } catch (err) {
     return next(err);
   }

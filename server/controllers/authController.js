@@ -19,7 +19,12 @@ authController.verifyToken = async (req, res, next) => {
       });
     } else {
       jwt.verify(token, process.env.JWT_SECRET, (error, result) => {
-        if (error) return next(error);
+        if (error)
+          return next({
+            log: 'Error occurred in authController.verifyToken',
+            status: 401,
+            message: error,
+          });
         req.user = result;
         return next();
       });
@@ -28,7 +33,7 @@ authController.verifyToken = async (req, res, next) => {
     return next({
       log: 'Error occurred in authController.verifyToken',
       status: 401,
-      message: 'You are not authorized to perform this action',
+      message: err,
     });
   }
 };
