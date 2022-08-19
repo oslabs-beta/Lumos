@@ -20,7 +20,7 @@ const getMetrics = async (
           Label: `Lambda Invocations ${func}`,
           MetricStat: {
             Period: `${period}`,
-            Stat: 'Average',
+            Stat: 'Sum', //should be sum
             Metric: {
               Namespace: `AWS/Lambda`,
               MetricName: 'Invocations',
@@ -38,7 +38,7 @@ const getMetrics = async (
           Label: `Lambda Errors ${func}`,
           MetricStat: {
             Period: `${period}`,
-            Stat: 'Average',
+            Stat: 'Sum',
             Metric: {
               Namespace: 'AWS/Lambda',
               MetricName: 'Errors',
@@ -56,7 +56,7 @@ const getMetrics = async (
           Label: `Lambda Throttles ${func}`,
           MetricStat: {
             Period: `${period}`,
-            Stat: 'Average',
+            Stat: 'Sum',
             Metric: {
               Namespace: 'AWS/Lambda',
               MetricName: 'Throttles',
@@ -74,7 +74,7 @@ const getMetrics = async (
           Label: `Lambda Duration ${func}`,
           MetricStat: {
             Period: `${period}`,
-            Stat: 'Average',
+            Stat: 'Sum',
             Metric: {
               Namespace: 'AWS/Lambda',
               MetricName: 'Duration',
