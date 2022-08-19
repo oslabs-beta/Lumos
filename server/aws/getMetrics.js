@@ -123,6 +123,7 @@ const getMetrics = async (
         });
       }
 
+      // console.log('this is data.data:', data.data)
       return data;
     } else {
       const queriedData = await client.send(
@@ -178,13 +179,10 @@ const getMetrics = async (
   }
 };
 
-
-getMetrics(
-  "August 1, 2022 15:30:30",
-  "August 10, 2022 18:00:00",
-  "Invocations",
-  period = 60,
-);
+// getMetrics(
+//   "August 1, 2022 15:30:30",
+//   "August 18, 2022 18:00:00",
+// );
 
 // // we need this getMetrics in a controller function so we can invoke this from a frontend route
 

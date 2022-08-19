@@ -17,23 +17,27 @@ export default function MonthButton() {
     fetch('/metric', {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({startTime: start, endTime: end, metricName: 'Invocations', period: 86400})
+      body: JSON.stringify({startTime: start, endTime: end, period: 86400})
     }).then((response) => response.json())
     .then(data => {
       console.log('RESPONSE DATA: ', data)
       console.log('RESPONSE DATA TYPE: ', typeof data)
       // update state obj with data values
       let sum = 0;
-        data.data.forEach((el) => {
+        data.metrics.forEach((el) => {
           sum += el.totalInvocations;
         });
 
+      // let totalDuration = 0;
+      // data.data.forEach((el) => totalDuration += el.totalDuration)
+
         setUserInfo({
-          lambdaFuncs: data.data,
-          lambdaActiveInvocations: sum,
+          lambdaFuncs: data.metrics,
+          lambdaActiveInvocations: 7,
           lambdaTotalErrors: 6,
           lambdaAvgThrottle: 41, 
-          lambdaAvgDuration: 4.2 
+          // lambdaAvgDuration: totalDuration / data.data.length
+          lambdaAvgDuration: 6, 
         });
 
       console.log('UPDATED STATE: ', userInfo);
