@@ -90,18 +90,19 @@ const data = {
     const borderColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
     const backgroundColor = `rgba(${borderColor.slice(4,borderColor.length - 1)}, 0.5)`;
 
-    timeStamp2.push(el.timestamps);
+    timeStamp2.push(el.timeStamps);
+    console.log({el})
 
     data.datasets.push({
       label: el.funcName,
-      data: el.funcValues,
+      data: el.totalInvocations,
       borderColor: borderColor,
       backgroundColor: backgroundColor,
       borderWidth: 1,
     })
   })
 
-  console.log('timeStamp: ', timeStamp2)
+  console.log('timeStamp2: ', timeStamp2)
   console.log('funcValue: ', userInfo.lambdaFuncs);
 
   let timeStamp3 = timeStamp2.flat(Infinity)
@@ -122,6 +123,7 @@ const data = {
 
   console.log('labels: ', labels);
   console.log('data.datasets: ', data.datasets)
+  
 
   // console.log('timeStamp2: ', timeStamp2);
   // console.log('test inside of latency: ', data2);

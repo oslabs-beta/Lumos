@@ -25,8 +25,7 @@ export default function DayButton() {
       body: JSON.stringify({
         startTime: start,
         endTime: end,
-        metricName: "Invocations",
-        period: 3600,
+        period: 60
       }),
     })
       .then((response) => response.json())
@@ -35,12 +34,12 @@ export default function DayButton() {
         console.log("RESPONSE DATA TYPE: ", typeof data);
         // update state obj with data values
         let sum = 0;
-        data.data.forEach((el) => {
+        data.metrics.forEach((el) => {
           sum += el.totalInvocations;
         });
 
         setUserInfo({
-          lambdaFuncs: data.data,
+          lambdaFuncs: data.metrics,
           lambdaActiveInvocations: sum,
           lambdaTotalErrors: 3,
           lambdaAvgThrottle: 40, 
