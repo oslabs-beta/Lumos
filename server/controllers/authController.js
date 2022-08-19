@@ -12,6 +12,7 @@ authController.verifyToken = async (req, res, next) => {
   try {
     const token = req.cookies['token'];
     if (!token) {
+      console.log('YOU HAVE NO TOKEN')
       return next({
         log: 'authController.verifyToken: No token exists',
         status: 401,
@@ -26,6 +27,7 @@ authController.verifyToken = async (req, res, next) => {
             message: error,
           });
         req.user = result;
+        console.log('TOKEN VERIFIED');
         return next();
       });
     }

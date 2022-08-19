@@ -17,19 +17,19 @@ export default function WeekButton() {
     fetch('/metric', {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({startTime: start, endTime: end, metricName: 'Invocations', period: 86400})
+      body: JSON.stringify({startTime: start, endTime: end, period: 86400})
     }).then((response) => response.json())
     .then(data => {
       console.log('RESPONSE DATA: ', data)
       console.log('RESPONSE DATA TYPE: ', typeof data)
       // update state obj with data values
       let sum = 0;
-        data.data.forEach((el) => {
+        data.metrics.forEach((el) => {
           sum += el.totalInvocations;
         });
 
         setUserInfo({
-          lambdaFuncs: data.data,
+          lambdaFuncs: data.metrics,
           lambdaActiveInvocations: sum,
           lambdaTotalErrors: 6,
           lambdaAvgThrottle: 41, 

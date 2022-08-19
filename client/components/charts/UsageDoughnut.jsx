@@ -9,12 +9,14 @@ function UsageDoughnut() {
   const [userInfo, setUserInfo] = useContext(InfoContext);
 
   let arrayValues = [];
+  let usageDonutEl = []
 
   userInfo.lambdaFuncs.forEach((el) => {
     arrayValues.push(el.funcValues);
+    usageDonutEl.push(el)
   })
 
-  console.log('arrayValues: ', arrayValues);
+  console.log('arrayValues: ', arrayValues, {usageDonutEl});
 
   const data = {
     labels: [
