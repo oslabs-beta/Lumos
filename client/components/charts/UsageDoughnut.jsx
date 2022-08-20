@@ -12,15 +12,15 @@ function UsageDoughnut() {
   let usageDonutEl = []
 
   userInfo.lambdaFuncs.forEach((el) => {
-    arrayValues.push(el.funcValues);
-    usageDonutEl.push(el)
+    arrayValues.push(el.funcName);
+    usageDonutEl.push(el.totalInvocation)
   })
 
   console.log('arrayValues: ', arrayValues, {usageDonutEl});
 
   const data = {
     labels: [
-      "us_east_add",
+      "us_east_add", // .funcName
       "us_east_cool",
       "us_east_count",
       "us_east_subtract"
