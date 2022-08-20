@@ -202,6 +202,7 @@
   justify-content: center;
   align-items: stretch;
   padding: 2px;
+  overflow: hidden;
 }
 
 .statsNumber {

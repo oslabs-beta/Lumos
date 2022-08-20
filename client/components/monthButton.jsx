@@ -13,7 +13,7 @@ export default function MonthButton() {
   //if userInfo.loggedIn !== return 'you must be signed in'  else submithandler
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log('I am the month button');
+    // console.log('I am the month button');
     fetch('/metric', {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
@@ -34,6 +34,8 @@ export default function MonthButton() {
           totalCost += el.totalCost;
         });
 
+        // console.log('total duration: ', totalDuration);
+
       // let totalDuration = 0;
       // data.data.forEach((el) => totalDuration += el.totalDuration)
 
@@ -47,7 +49,7 @@ export default function MonthButton() {
           lambdaAvgDuration: totalDuration, 
         });
 
-      console.log('UPDATED STATE: ', userInfo);
+      // console.log('UPDATED STATE: ', userInfo);
   })
 }
   return (

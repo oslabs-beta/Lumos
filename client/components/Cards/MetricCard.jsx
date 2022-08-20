@@ -51,7 +51,7 @@ export default function MetricCard() {
     </Box>
     <Box container className="Avg-Duration metricCard">
       <div className="cardStats">
-       <div className="statsNumber">{userInfo.lambdaAvgDuration}</div>
+       <div className="statsNumber">{userInfo.lambdaAvgDuration.toFixed(2)}</div>
        {/* <div className="cardPercentage">+5%</div> */}
        <div className="cardTitle">Avg Duration</div>
       </div>

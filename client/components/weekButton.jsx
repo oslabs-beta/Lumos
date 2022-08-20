@@ -13,7 +13,7 @@ export default function WeekButton() {
   const end = new Date();
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log('I am the week button');
+    // console.log('I am the week button');
     fetch('/metric', {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
@@ -23,20 +23,28 @@ export default function WeekButton() {
       console.log('RESPONSE DATA: ', data)
       console.log('RESPONSE DATA TYPE: ', typeof data)
       // update state obj with data values
-      let sum = 0;
-        data.metrics.forEach((el) => {
-          sum += el.totalInvocations;
-        });
+      let activeInvocations = 0;
+      let totalErrors = 0;
+      let totalDuration = 0;
+      let totalCost = 0;
+      data.metrics.forEach((el) => {
+        activeInvocations += el.totalInvocations;
+        totalErrors += el.totalErrors;
+        totalDuration += el.totalDuration;
+        totalCost += el.totalCost;
+      });
 
         setUserInfo({
           lambdaFuncs: data.metrics,
-          lambdaActiveInvocations: sum,
-          lambdaTotalErrors: 6,
-          lambdaAvgThrottle: 41, 
-          lambdaAvgDuration: 4.2 
+          lambdaActiveInvocations: activeInvocations,
+          lambdaTotalErrors: totalErrors,
+          lambdaAvgThrottle: 41,
+          lambdaTotalCost: totalCost, 
+          // lambdaAvgDuration: totalDuration / data.data.length
+          lambdaAvgDuration: totalDuration, 
         });
 
-      console.log('UPDATED STATE: ', userInfo);
+      // console.log('UPDATED STATE: ', userInfo);
   })
 }
   return (
