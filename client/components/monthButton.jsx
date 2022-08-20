@@ -20,12 +20,18 @@ export default function MonthButton() {
       body: JSON.stringify({startTime: start, endTime: end, period: 86400})
     }).then((response) => response.json())
     .then(data => {
-      console.log('RESPONSE DATA: ', data)
-      console.log('RESPONSE DATA TYPE: ', typeof data)
-      // update state obj with data values
-      let sum = 0;
+        console.log('RESPONSE DATA: ', data)
+        console.log('RESPONSE DATA TYPE: ', typeof data)
+        // update state obj with data values
+        let activeInvocations = 0;
+        let totalErrors = 0;
+        let totalDuration = 0;
+        let totalCost = 0;
         data.metrics.forEach((el) => {
-          sum += el.totalInvocations;
+          activeInvocations += el.totalInvocations;
+          totalErrors += el.totalErrors;
+          totalDuration += el.totalDuration;
+          totalCost += el.totalCost;
         });
 
       // let totalDuration = 0;
@@ -33,11 +39,12 @@ export default function MonthButton() {
 
         setUserInfo({
           lambdaFuncs: data.metrics,
-          lambdaActiveInvocations: 7,
-          lambdaTotalErrors: 6,
-          lambdaAvgThrottle: 41, 
+          lambdaActiveInvocations: activeInvocations,
+          lambdaTotalErrors: totalErrors,
+          lambdaAvgThrottle: 41,
+          lambdaTotalCost: totalCost, 
           // lambdaAvgDuration: totalDuration / data.data.length
-          lambdaAvgDuration: 6, 
+          lambdaAvgDuration: totalDuration, 
         });
 
       console.log('UPDATED STATE: ', userInfo);
