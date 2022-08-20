@@ -39,9 +39,9 @@ export default function MetricCard() {
     </Box>
     <Box container className="Avg-Cost metricCard">
       <div className="cardStats">
-       <div className="statsNumber">{userInfo.lambdaAvgThrottle}</div>
+       <div className="statsNumber">{'$ ' + userInfo.lambdaTotalCost.toFixed(2)}</div>
        {/* <div className="cardPercentage">+5%</div> */}
-       <div className="cardTitle">Avg Cost</div>
+       <div className="cardTitle">Total Cost</div>
       </div>
       <div className="cardIcon">
       <div className="iconWrapper">
@@ -51,7 +51,7 @@ export default function MetricCard() {
     </Box>
     <Box container className="Avg-Duration metricCard">
       <div className="cardStats">
-       <div className="statsNumber">{userInfo.lambdaAvgDuration}</div>
+       <div className="statsNumber">{userInfo.lambdaAvgDuration.toFixed(2)}</div>
        {/* <div className="cardPercentage">+5%</div> */}
        <div className="cardTitle">Avg Duration</div>
       </div>

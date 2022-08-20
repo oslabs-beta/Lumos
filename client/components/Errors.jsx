@@ -75,6 +75,6 @@ value = amount of error/ less is best
 timestamp = when function status occurred 
 */
 const rows = [
-  { Label: "Error 1", Status: 'Complete', Value: 34, Timestamp: date, Cost: 4.0},{ Label: "Error 2", Status: 159, Value: 17, Timestamp: date, Cost: 4.0},{ Label: "Error 3", Status: 159, Value: 45, Timestamp: date, Cost: 4.0},{ Label: "Error 4", Status: 159, Value: 29, Timestamp: date, Cost: 4.0},
+  { Label: "Error 1", Status: 'Complete', Value: 34, Timestamp: date, Cost: 4.0},{ Label: "Error 2", Status: 159, Value: 17, Timestamp: date, Cost: 4.0},{ Label: "Error 3", Status: 159, Value: 45, Timestamp: date, Cost: 4.0},{ Label: "Error 4", Status:159, Value: 29, Timestamp: date, Cost: 4.0},
 ]
 export default Errors;

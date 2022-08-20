@@ -30,7 +30,8 @@ function MainContainer() {
     lambdaActiveInvocations: 0,
     lambdaTotalErrors: 0,
     lambdaAvgThrottle: 0, 
-    lambdaAvgDuration: 0 
+    lambdaAvgDuration: 0,
+    lambdaTotalCost: 0
   });
 
   // const allLambdaFuncs = [

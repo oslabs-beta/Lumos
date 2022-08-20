@@ -16,8 +16,8 @@ export default function DayButton() {
 
     const end = new Date();
 
-    console.log(start);
-    console.log("I am the 24hr button");
+    // console.log(start);
+    // console.log("I am the 24hr button");
 
     fetch("/metric", {
       method: "POST",
@@ -33,23 +33,31 @@ export default function DayButton() {
         console.log("RESPONSE DATA: ", data);
         console.log("RESPONSE DATA TYPE: ", typeof data);
         // update state obj with data values
-        let sum = 0;
+        let activeInvocations = 0;
+        let totalErrors = 0;
+        let totalDuration = 0;
+        let totalCost = 0;
         data.metrics.forEach((el) => {
-          sum += el.totalInvocations;
+          activeInvocations += el.totalInvocations;
+          totalErrors += el.totalErrors;
+          totalDuration += el.totalDuration;
+          totalCost += el.totalCost;
         });
 
         setUserInfo({
           lambdaFuncs: data.metrics,
-          lambdaActiveInvocations: sum,
-          lambdaTotalErrors: 3,
-          lambdaAvgThrottle: 40, 
-          lambdaAvgDuration: 4.3 
+          lambdaActiveInvocations: activeInvocations,
+          lambdaTotalErrors: totalErrors,
+          lambdaAvgThrottle: 41,
+          lambdaTotalCost: totalCost, 
+          // lambdaAvgDuration: totalDuration / data.data.length
+          lambdaAvgDuration: totalDuration, 
         });
 
         // lambdaFuncs: [{ funcName: "", totalInvocations : 0, totalErrors: 0, timeStamps: [], funcValues: [] }],
         // lambdaActiveInvocations: 0,
 
-        console.log("UPDATED STATE: ", userInfo);
+        // console.log("UPDATED STATE: ", userInfo);
         // useEffect(() => console.log(userInfo), [userInfo]);
       });
     return false;

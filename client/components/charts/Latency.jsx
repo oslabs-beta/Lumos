@@ -106,22 +106,27 @@ const data = {
   console.log('funcValue: ', userInfo.lambdaFuncs);
 
   let timeStamp3 = timeStamp2.flat(Infinity)
-  console.log('timeStamp3: ', timeStamp3.sort());
+  timeStamp3.sort();
 
   timeStamp3.forEach((el) => {
+    labels.push(Date.parse(el));
+  })
 
-    if (el) {
-      if (el[5] < 1 && !labels.includes((el.slice(6, 16)).replace('T', ',').replace('-', '/'))) {
-        labels.push((el.slice(6, 16)).replace('T', ',').replace('-', '/'))
-      }
 
-      else if (el[5] >= 1 && !labels.includes((el.slice(5, 16)).replace('T', ',').replace('-', '/'))) {
-        labels.push((el.slice(5, 16)).replace('T', ',').replace('-', '/'))
-      }
-    }    // labels.push(el.slice(0, 9));
-  });
+  // timeStamp3.forEach((el) => {
 
-  console.log('labels: ', labels);
+  //   if (el) {
+  //     if (el[5] < 1 && !labels.includes((el.slice(6, 16)).replace('T', ',').replace('-', '/'))) {
+  //       labels.push((el.slice(6, 16)).replace('T', ',').replace('-', '/'))
+  //     }
+
+  //     else if (el[5] >= 1 && !labels.includes((el.slice(5, 16)).replace('T', ',').replace('-', '/'))) {
+  //       labels.push((el.slice(5, 16)).replace('T', ',').replace('-', '/'))
+  //     }
+  //   }    // labels.push(el.slice(0, 9));
+  // });
+
+  console.log('labels (Date.parse()): ', labels);
   console.log('data.datasets: ', data.datasets)
   
 
