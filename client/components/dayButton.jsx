@@ -25,7 +25,7 @@ export default function DayButton() {
       body: JSON.stringify({
         startTime: start,
         endTime: end,
-        period: 60
+        period: 60,
       }),
     })
       .then((response) => response.json())
@@ -45,13 +45,15 @@ export default function DayButton() {
         });
 
         setUserInfo({
+          loggedIn: true,
+          timePeriod: "day",
           lambdaFuncs: data.metrics,
           lambdaActiveInvocations: activeInvocations,
           lambdaTotalErrors: totalErrors,
           lambdaAvgThrottle: 41,
-          lambdaTotalCost: totalCost, 
+          lambdaTotalCost: totalCost,
           // lambdaAvgDuration: totalDuration / data.data.length
-          lambdaAvgDuration: totalDuration, 
+          lambdaAvgDuration: totalDuration,
         });
 
         // lambdaFuncs: [{ funcName: "", totalInvocations : 0, totalErrors: 0, timeStamps: [], funcValues: [] }],
@@ -64,7 +66,7 @@ export default function DayButton() {
   };
   return (
     <>
-      <Button className='LumosButton' onClick={submitHandler}>
+      <Button className="LumosButton" onClick={submitHandler}>
         24hr
       </Button>
     </>

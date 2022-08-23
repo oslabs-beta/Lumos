@@ -46,23 +46,32 @@ export default function Sign() {
     })
       .then((response) => response.text())
       .then((loginData) => {
-        console.log('LOGIN DATA ', loginData);
+        console.log("LOGIN DATA ", loginData);
         loginData = true;
         console.log(loginData == true);
         if (loginData == true) {
-          console.log('login data: true?')
+          console.log("login data: true?");
           window.alert(`You're signed in ${data.email}`);
           //set flag to true
           setUserInfo({
+            timePeriod: undefined,
             loggedIn: true,
             user_name: "",
             first_name: "",
             user_id: "",
-            lambdaFuncs: [{ funcName: "", totalInvocations : 0, totalErrors: 0, timeStamps: [], funcValues: [] }],
+            lambdaFuncs: [
+              {
+                funcName: "",
+                totalInvocations: 0,
+                totalErrors: 0,
+                timeStamps: [],
+                funcValues: [],
+              },
+            ],
             lambdaActiveInvocations: 0,
             lambdaTotalErrors: 0,
-            lambdaAvgThrottle: 0, 
-            lambdaAvgDuration: 0 
+            lambdaAvgThrottle: 0,
+            lambdaAvgDuration: 0,
           });
           //run use effect to make a get request for all the metrics
           // const url = "/metric";
@@ -78,9 +87,6 @@ export default function Sign() {
           //     }
           // };
           // fetchData();
-            
-
-          
         } else {
           window.alert(
             "Email is not registered or the password is incorrect, please try again."
@@ -94,35 +100,39 @@ export default function Sign() {
 
   return (
     <>
-      <Button id='signin' className='LumosButton loginButton' onClick={handleOpen}>
+      <Button
+        id="signin"
+        className="LumosButton loginButton"
+        onClick={handleOpen}
+      >
         {" "}
         Login{" "}
       </Button>
       <Modal
-        className='LoginModal'
+        className="LoginModal"
         open={open}
         onClose={handleClose}
         BackdropProps={{
           style: { backgroundColor: "transparent", boxShadow: "none" },
         }}
       >
-        <form className='loginForm' onSubmit={submitHandler}>
+        <form className="loginForm" onSubmit={submitHandler}>
           <TextField
             onChange={handleChange}
-            name='email'
-            id='outlined-basic'
-            label='email'
-            variant='outlined'
+            name="email"
+            id="outlined-basic"
+            label="email"
+            variant="outlined"
           />
           <TextField
             onChange={handleChange}
-            type='password'
-            name='password'
-            id='outlined-basic'
-            label='password'
-            variant='outlined'
+            type="password"
+            name="password"
+            id="outlined-basic"
+            label="password"
+            variant="outlined"
           />
-          <Button variant='contained loginButton' onClick={submitHandler}>
+          <Button variant="contained loginButton" onClick={submitHandler}>
             Sign In
           </Button>
         </form>

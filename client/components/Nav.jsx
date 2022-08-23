@@ -17,14 +17,14 @@ function Nav() {
       <img className="LumosLogo" src={require('../assets/Lumos_Logo.png').default} />      
       </Box>
       </Box>
-      {/* { userInfo.loggedIn === false &&
-        <> */}
+      { userInfo.loggedIn === false &&
+        <>
       <Box className="ButtonContainer">
       <Login />
       <Sign />
       </Box>
-      {/* </>
-      } */}
+      </>
+      }
     </Box>
   );
 }

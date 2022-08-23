@@ -7,7 +7,8 @@ import {Box} from '@material-ui/'
 export default function LandingPage() {
   return (
     <div className="LandingPage">
-      <Box container 
+      <Box container >
+
 
     </div>
   )

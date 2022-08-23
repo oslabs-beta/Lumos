@@ -33,10 +33,27 @@ const options = {
       position: "top",
     },
   },
+  // scales: {
+  //   y: {
+  // type: "time",
+  // time: {
+  //   displayFormats: {
+  //     //
+  //   },
+  // },
+  // },
+  // x: {
+  //   type: "time",
+  //   time: {
+  //     displayFormats: {
+  //       //
+  //     },
+  //   },
+  // },
+  // },
+  // },
 };
-
 // x-axis, this needs to be updated depending on the .length of the timestamps array
-
 
 // this all gets done AFTER state object has been populated from Login's successful verification
 // we'll need 3 buttons created at the Header for 24 Hour / 7 Day / 30 Day time frames that each make fetch calls with different start/end dates
@@ -45,6 +62,8 @@ const options = {
 
 function Latency() {
   const [userInfo, setUserInfo] = useContext(InfoContext);
+
+  console.log(userInfo);
 
   const labels = [
     // "8/5", // 50 invocations
@@ -55,9 +74,10 @@ function Latency() {
     // "8/10",
     // "8/11"
   ];
-//lambdaMetrics: [], // { invocations: "",
 
-const data = {
+  //lambdaMetrics: [], // { invocations: "",
+
+  const data = {
     labels,
     datasets: [
       // new datasets object needs to be created depending on how many Lambda funcs we get back
@@ -82,88 +102,93 @@ const data = {
     ],
   };
 
-  const timeStamp2 = [];
-  const data2 = [];
+  let testLabels = [];
+
+  if (userInfo.timePeriod === "month") {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const lastDay = new Date(year, month, 0).getDate();
+
+    for (let i = 1; i <= lastDay; i += 1) {
+      testLabels.push(`${month}/${i}`);
+    }
+
+    data.labels = testLabels;
+  }
+
+  // console.log("data.labels", data.labels);
+
+  // const timeStamp2 = [];
+  // const data2 = [];
 
   userInfo.lambdaFuncs.forEach((el) => {
+    const borderColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+      Math.random() * 256
+    )}, ${Math.floor(Math.random() * 256)})`;
+    const backgroundColor = `rgba(${borderColor.slice(
+      4,
+      borderColor.length - 1
+    )}, 0.5)`;
 
-    const borderColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
-    const backgroundColor = `rgba(${borderColor.slice(4,borderColor.length - 1)}, 0.5)`;
+    // let resultArr = []
+    // for (let x in Object.keys(data.labels)) {
+    //   const keys = data.labels[x];
+    //   for (let y = 0; y < el.timeStamps.length; y++) {
+    //     const time = el.timeStamps[y];
+    //     console.log(
+    //       el.funcName,
+    //       "looking @ timestamp",
+    //       time,
+    //       keys,
+    //       "match ?",
+    //       time === keys
+    //     );
+        
+    //     if (time === keys) {
+    //       resultArr.push(10);
+    //     }
+    //     if(time !== keys){
+    //       resultArr.push(-1)
+    //     }
+    //   }
+    // }
+    // console.log(resultArr)
+    //8/1, push to array 0
+    //8/19, pushes to array value of 8/19
+    //8/1, 8/2, 8/3, 8/4, 8/5, 8/6, 8/7
+    
+    //array: [0, 0, 0, 0, 57, 10, 5, ]
+    
+    //data.datasets[0].data = arrxay of values
 
-    timeStamp2.push(el.timeStamps);
-    console.log({el})
+    //8/1 if has value otherwise 0
+    //8/2
 
+    //array of 31 elements
+    //[0, 0, 500, 0, 1, 2, 3, 4, 5, 6, 7, 8]
     data.datasets.push({
       label: el.funcName,
-      data: el.totalInvocations,
+      // data:  x: el.totalInvocations, y: 12 }, //y = timestamps and invocations
+      data: [el.totalInvocations],
       borderColor: borderColor,
       backgroundColor: backgroundColor,
       borderWidth: 1,
-    })
-  })
+      spanGaps: true,
+    });
+  });
 
-  console.log('timeStamp2: ', timeStamp2)
-  console.log('funcValue: ', userInfo.lambdaFuncs);
+  // el.totalInvocations.map((invocation, i) => {x: el.timeStamps[i], y: invocation})
 
-  let timeStamp3 = timeStamp2.flat(Infinity)
-  timeStamp3.sort();
+  console.log("data.datasets", data.datasets);
+  console.log({ data });
 
-  timeStamp3.forEach((el) => {
-    labels.push(Date.parse(el));
-  })
+  console.log(data.datasets[0].data);
 
 
-  // timeStamp3.forEach((el) => {
+  useEffect(() => {}, [userInfo]);
 
-  //   if (el) {
-  //     if (el[5] < 1 && !labels.includes((el.slice(6, 16)).replace('T', ',').replace('-', '/'))) {
-  //       labels.push((el.slice(6, 16)).replace('T', ',').replace('-', '/'))
-  //     }
 
-  //     else if (el[5] >= 1 && !labels.includes((el.slice(5, 16)).replace('T', ',').replace('-', '/'))) {
-  //       labels.push((el.slice(5, 16)).replace('T', ',').replace('-', '/'))
-  //     }
-  //   }    // labels.push(el.slice(0, 9));
-  // });
-
-  console.log('labels (Date.parse()): ', labels);
-  console.log('data.datasets: ', data.datasets)
-  
-
-  // console.log('timeStamp2: ', timeStamp2);
-  // console.log('test inside of latency: ', data2);
-  // here is where we update 'data' array of lambda values into our y-axis of invocation counts
-
-  useEffect(() => { }, [userInfo]);
-
-  // if (userInfo.transactions.length > 0 && userInfo.incomeArray.length > 0) {
-  //   // run through transaction array
-  //   for (let trans of userInfo.lambdaMetrics) {
-  //     const month = moment(trans.dates).format("MMMM");
-  //     const index = labels.indexOf(month);
-  //     const amount = parseFloat(trans.amount.slice(1).split(",").join(""));
-  //     data.datasets[0].data[index] -= amount;
-  //   }
-
-  //   // run through income array
-  //   for (let income of userInfo.incomeArray) {
-  //     const month = moment(income.dates).format("MMMM");
-  //     const index = labels.indexOf(month);
-  //     const amount = parseFloat(income.amount.slice(1).split(",").join(""));
-  //     data.datasets[0].data[index] += amount;
-  //   }
-
-  //   if (userInfo.savingsGoal) {
-  //     for (let trans of userInfo.savingsGoal) {
-  //       const month = moment(trans.date).format("MMMM");
-  //       const index = labels.indexOf(month);
-  //       const amount = parseFloat(trans.amount);
-  //       data.datasets[1].data[index] += amount;
-  //     }
-
-  //     console.log(data.datasets[1].data);
-  //   }
-  // }
 
   return <Line options={options} data={data} />;
 }
