@@ -50,11 +50,11 @@ export default function Sign() {
         loginData = true;
         console.log(loginData == true);
         if (loginData == true) {
-          console.log("login data: true?");
+          console.log("login data: true");
           window.alert(`You're signed in ${data.email}`);
           //set flag to true
           setUserInfo({
-            timePeriod: undefined,
+            timePeriod: "day",
             loggedIn: true,
             user_name: "",
             first_name: "",
@@ -70,7 +70,7 @@ export default function Sign() {
             ],
             lambdaActiveInvocations: 0,
             lambdaTotalErrors: 0,
-            lambdaAvgThrottle: 0,
+            lambdaTotalCost: 0,
             lambdaAvgDuration: 0,
           });
           //run use effect to make a get request for all the metrics

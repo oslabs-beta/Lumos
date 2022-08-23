@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { InfoContext } from "../../containers/MainContainer.jsx";
 import {
   Chart as ChartJS,
@@ -25,17 +25,16 @@ ChartJS.register(
   TimeScale
 );
 
-const TestChart = () => {
+function TestChart() {
   const [userInfo] = useContext(InfoContext);
+  useEffect(() => {}, [userInfo]);
 
   const options = {
-    scales: {
-      x: {
-        type: "time",
-      },
-
-      yAxes: {
-        beginAtZero: true,
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: "top",
       },
     },
   };
@@ -44,36 +43,59 @@ const TestChart = () => {
   const year = date.getFullYear();
   const month = date.getMonth();
   const lastDay = new Date(year, month, 0).getDate();
-  // const today = new Date(day)
 
   const getLabels = () => {
+    console.log("labels inside getLabels: ", labels);
     if (userInfo.timePeriod === "month") {
-      const labels = Array.from(Array(lastDay)).map(
-        (_, i) => new Date(year, month, (i += 1))
+      return Array.from(Array(lastDay)).map((_, i) =>
+        new Date(year, month, (i += 1)).toLocaleDateString()
       );
-
-      let labelsObj = [];
-
-      for (let i = 0; i < labels.length; i += 1) {
-        const currentLabel = labels[i];
-        labelsObj.push({ x: currentLabel, y: 0 });
-      }
-
-      return labelsObj;
     }
     if (userInfo.timePeriod === "week") {
-      // return Array.from(Array(lastDay)).map((_, i) => {
-      //   new Date(year, month, (i += 1));
-      //   console.log(i);
-      //   if (i === 7) return;
-      // });
-      //
+      const lastWeek = new Date(year, month, date.getDate());
+      const lastWeekArr = [];
+      for (let i = 0; i < 7; i += 1) {
+        const lastWeekDate = lastWeek.getDate(); // this is read only
+        lastWeekArr.push(
+          new Date(year, month, lastWeekDate - i).toLocaleDateString()
+        ); // i seems to be hours for some reason
+        console.log(
+          "lastweekarr at end of for loop: ",
+          lastWeekArr[lastWeekArr.length - 1]
+        );
+      }
+
+      console.log("LAST WEEK ARRAY: ", lastWeekArr, lastWeekArr.length);
+      return lastWeekArr.reverse();
+
+      // return lastWeek;
+    }
+    //
+    if (userInfo.timePeriod === "day") {
+      const dayArr = [];
+
+      for (let i = 0; i <= 24; i++) {
+        const date = new Date() - i * 3600 * 1000;
+        dayArr.push(new Date(date).toLocaleTimeString());
+      }
+
+      return dayArr.reverse();
+
+      // const yesterday = new Date(
+      //   for (let i = 0; i <= 24; i++) {
+
+      //   }
+      //   new Date().getTime() - 24 * 60 * 60 * 1000
+      // ).toLocaleTimeString();
     } else {
       //
     }
   };
 
   const labels = getLabels();
+
+  // const labels = [1, 2, 3, 4, 5, 6, 7];
+  // console.log("after labels[7], labels[8]", labels[7], labels[8]);
   // let labelsObj = [];
 
   // for (let i = 0; i < labels.length; i += 1) {
@@ -84,99 +106,82 @@ const TestChart = () => {
   // console.log(labelsObj);
 
   const datasets = [];
-  for (let i = 0; i < userInfo.lambdaFuncs.length; i += 1) {
-      const func = userInfo.lambdaFuncs[i];
-      // const data = func.timeStamps.map((time, i) => ({
-        //   x: time,
-        //   y: func.invocationsArray[i],
-        // }));
-        // const data = func.timeStamps.forEach((time, i) => labelsObj[0]);
-      
-      // const data = func.invocationsArray;
-      
-    //   userInfo.lambdaFuncs.forEach((el) => {
-    //     let resultArr = []
-    // for (let x in Object.keys(data.labels)) {
-    //   const keys = data.labels[x];
-    //   for (let y = 0; y < el.timeStamps.length; y++) {
-    //     const time = el.timeStamps[y];
-    //     console.log(
-    //       el.funcName,
-    //       "looking @ timestamp",
-    //       time,
-    //       keys,
-    //       "match ?",
-    //       time === keys
-    //     );
-        
-    //     if (time === keys) {
-    //       resultArr.push(10);
-    //     }
-    //     if(time !== keys){
-    //       resultArr.push(-1)
-    //     }
-    //   }
-    // }
+  // for (let i = 0; i < userInfo.lambdaFuncs.length; i += 1) {
+  //   const func = userInfo.lambdaFuncs[i];
+  //   const data = func.timeStamps.map((time, i) => ({
+  //     x: new Date(time),
+  //     y: func.invocationsArray[i],
+  //   }));
 
-    console.log("data test", data);
+  for (let i = 0; i < userInfo.lambdaFuncs.length; i += 1) {
+    const func = userInfo.lambdaFuncs[i];
+    // const data = func.formattedTimeStamps.map((time, i) => {
+    //   labels.includes(time)
+    //     ? { x: new Date(time), y: func.invocationsArray[i] }
+    //     : { x: new Date(time), y: 0 };
+    // });
+
+    const data = [];
+
+    for (let i = 0; i < func.formattedTimeStamps.length; i += 1) {
+      const time = func.formattedTimeStamps[i];
+      labels.includes(time)
+        ? data.push({ x: time, y: func.invocationsArray[i] })
+        : data.push({ x: time, y: 0 });
+    }
 
     datasets.push({
       label: func.funcName,
-      data: resultsArr,
+      data: data,
       borderColor: "#" + Math.floor(Math.random() * 16777215).toString(16),
       backgroundColor: "#" + Math.floor(Math.random() * 16777215).toString(16),
       spanGaps: true,
+      tension: 0.5,
     });
+    console.log("DATA: ", data);
   }
 
+  // {
+  //        funcName: 'newFuncLamb',
+  //        invocationsArray: [ 51, 6, 12, 87 ],
+  //        totalInvocations: 156,
+  //        totalErrors: 0,
+  //        totalDuration: 233.92000000000004,
+  //        totalCost: 0.0000936,
+  //        timeStamps: [
+  //          2022-08-23T15:13:00.000Z,
+  //          2022-08-23T15:12:00.000Z,
+  //          2022-08-23T01:06:00.000Z,
+  //          2022-08-23T00:44:00.000Z
+  //        ],
+  //        formattedTimeStamps: [ '8/22', '8/22', '8/23', '8/23' ]
+  // }
+
+  // const data = [];
+
+  // for (let i = 0; i < func.invocationsArray.length; i++) {
+  //   data.push({
+  //     x: func.timeStamps[i],
+  //     y: func.invocationsArray[i],
+  //   });
+  // }
+  //   const data = func.timeStamps.forEach((time, i) => labelsObj[0]);
+
+  // const data = func.invocationsArray;
+
+  console.log("carmen data test", data);
+
   const data = {
-    labels,
-    datasets,
+    labels: labels,
+    datasets: datasets,
   };
 
-  console.log("labels: ", labels);
-  console.log("datasets: ", datasets);
+  // console.log("labels: ", labels);
+  // console.log("datasets: ", datasets);
 
-  return (
-    <>
-      <Line options={options} data={data} />
-    </>
-  );
-};
+  console.log("data end of file: ", data);
+
+  return <Line options={options} data={data} />;
+}
 
 export default TestChart;
-
-/*
-   // need to update for labels (time) and data (metric)
-        // parse through valueArray and house our timestampArr and metricsArr
-        const lineChartData = []
-        const timestampArr = [];
-        let metricsArr = [];
-        let timeArrBuilt = false;
-        // iterating through out object
-        for (let [topic, value] of Object.entries(topicData)) {
-            for (let i = 0; i < value.length; i++) { // { topic: [timestamp , another time] }
-                if (!timeArrBuilt) {
-                    let currDate = new Date(Number(value[i][0]) * 1000).toLocaleTimeString(); // mult by 1000 given value comes in as seconds
-                    // console.log('currDate', currDate)
-                    let splittedString = currDate.split(":");
-                    currDate = splittedString.slice(0, -1).join(':') + splittedString[2].slice(-2);
-                    timestampArr.push(currDate);
-                }
-                metricsArr.push(Number(value[i][1]));
-            }
-            // given times for all metrics are the same after pull, only aggregate once
-            timeArrBuilt = true;
-
-            lineChartData.push({
-                label: topic,
-                data: metricsArr,
-                borderColor: getRandomColor()
-            });
-            // reset for next topic
-            metricsArr = [];
-        }
-        return [timestampArr, lineChartData]
-    }
-
-*/

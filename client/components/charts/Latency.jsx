@@ -131,28 +131,28 @@ function Latency() {
       borderColor.length - 1
     )}, 0.5)`;
 
-    // let resultArr = []
-    // for (let x in Object.keys(data.labels)) {
-    //   const keys = data.labels[x];
-    //   for (let y = 0; y < el.timeStamps.length; y++) {
-    //     const time = el.timeStamps[y];
-    //     console.log(
-    //       el.funcName,
-    //       "looking @ timestamp",
-    //       time,
-    //       keys,
-    //       "match ?",
-    //       time === keys
-    //     );
+    let resultArr = []
+    for (let x in Object.keys(data.labels)) {
+      const keys = data.labels[x];
+      for (let y = 0; y < el.formattedTimeStamps.length; y++) {
+        const time = el.formattedTimeStamps[y];
+        console.log(
+          el.funcName,
+          "looking @ timestamp",
+          time,
+          keys,
+          "match ?",
+          time === keys
+        );
         
-    //     if (time === keys) {
-    //       resultArr.push(10);
-    //     }
-    //     if(time !== keys){
-    //       resultArr.push(-1)
-    //     }
-    //   }
-    // }
+        if (time === keys) {
+          resultArr.push(10);
+        }
+        if(time !== keys){
+          resultArr.push(-1)
+        }
+      }
+    }
     // console.log(resultArr)
     //8/1, push to array 0
     //8/19, pushes to array value of 8/19

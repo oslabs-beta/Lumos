@@ -107,7 +107,7 @@ const getMetrics = async (
 
         data.push({
           funcName: queries[i][0].MetricStat.Metric.Dimensions[0].Value,
-          invocationsArray: queriedData.MetricDataResults[0].Values,
+          invocationsArray: queriedData.MetricDataResults[0].Values.reverse(),
           totalInvocations: queriedData.MetricDataResults[0].Values.reduce(
             (a, b) => a + b,
             0
@@ -124,9 +124,9 @@ const getMetrics = async (
             queriedData.MetricDataResults[0].Values.reduce((a, b) => a + b, 0) *
             0.0000006,
           // dayjs('2018-04-04T16:00:00.000Z').format('DD/MM/YYYY') -> 04/04/2018 -> 4/4
-          timeStamps: queriedData.MetricDataResults[0].Timestamps,
-          formattedTimeStamps: queriedData.MetricDataResults[0].Timestamps.map((time) =>
-            dayjs(time).format("M/D")
+          timeStamps: queriedData.MetricDataResults[0].Timestamps.reverse(),
+          formattedTimeStamps: queriedData.MetricDataResults[0].Timestamps.map(
+            (time) => dayjs(time).format("M/D/YYYY")
           ).reverse(),
         });
       }
@@ -187,6 +187,5 @@ const getMetrics = async (
 };
 
 getMetrics("August 1, 2022 15:30:30", "August 18, 2022 18:00:00");
-
 
 module.exports = getMetrics;

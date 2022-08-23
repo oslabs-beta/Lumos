@@ -26,7 +26,7 @@ function MainContainer() {
     user_name: "",
     first_name: "",
     user_id: "",
-    timePeriod: "",
+    timePeriod: "day",
     lambdaFuncs: [
       {
         funcName: "",
@@ -40,13 +40,11 @@ function MainContainer() {
     ],
     lambdaActiveInvocations: 0,
     lambdaTotalErrors: 0,
-    lambdaAvgThrottle: 0,
     lambdaAvgDuration: 0,
     lambdaTotalCost: 0,
   });
 
-
-  useEffect(() => console.log(''), [userInfo]);
+  useEffect(() => console.log("Current State", userInfo), [userInfo]);
 
   return (
     //implement grid template outer container
@@ -60,8 +58,7 @@ function MainContainer() {
         <Header item />
         <Metrics item />
         <Usage item />
-        <TestChart item />
-        {/* <Charts item /> */}
+        <Charts item />
         <Errors item />
         <Footer item />
         {/* </> */}
