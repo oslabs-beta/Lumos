@@ -59,8 +59,8 @@ function TestChart() {
 
   const getLabels = () => {
     if (userInfo.timePeriod === "month") {
-      return Array.from(Array(lastDay)).map(
-        (_, i) => new Date(year, month, (i += 1))
+      return Array.from(Array(lastDay)).map((_, i) =>
+        new Date(year, month, (i += 1)).toLocaleDateString()
       );
     }
 
@@ -68,32 +68,60 @@ function TestChart() {
       const lastWeek = new Date(year, month, date.getDate());
       const lastWeekArr = [];
       for (let i = 0; i < 7; i += 1) {
-        const lastWeekDate = lastWeek.getDate(); // this is read only
-        lastWeekArr.push(new Date(year, month, i, lastWeekDate)); // i seems to be hours for some reason
+        const lastWeekDate = lastWeek.getDate();
+        lastWeekArr.push(
+          new Date(year, month, lastWeekDate - i).toLocaleDateString()
+        );
       }
-      return lastWeekArr;
+      return lastWeekArr.reverse();
     }
 
     if (userInfo.timePeriod === "day") {
-      const yesterday = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
+      const dayArr = [];
+      for (let i = 0; i <= 24; i++) {
+        const date = new Date() - i * 3600 * 1000;
+        dayArr.push(new Date(date).toLocaleTimeString());
+      }
+      return dayArr.reverse();
     }
   };
 
   const labels = getLabels();
+  console.log("LABELS ", labels);
   const datasets = [];
   const testDataSet = [];
 
   for (let i = 0; i < userInfo.lambdaFuncs.length; i += 1) {
     const func = userInfo.lambdaFuncs[i];
-    const data = func.formattedTimeStamps.map((time, i) => ({
-      x: time,
-      y: func.invocationsArray[i],
-    }));
+    // const data = func.formattedTimeStamps.map((time, i) => ({
+    //   x: time,
+    //   y: func.invocationsArray[i],
+    // }));
 
     testDataSet.push({
       x: userInfo.lambdaFuncs[i].invocationsArray[i],
       y: userInfo.lambdaFuncs[i].formattedTimeStamps[i],
     });
+
+    // SAMPLE 7 DAY OBJ RESPONSE
+    //   {
+    //     funcName: 'newFuncLamb',
+    //     invocationsArray: [ 32, 76, 87, 12, 6, 51, 16 ],
+    //     totalInvocations: 280,
+    //     totalErrors: 0,
+    //     totalDuration: 377.42,
+    //     totalCost: 0.000168,
+    //     timeStamps: [
+    //       2022-08-20T14:40:00.000Z,
+    //       2022-08-20T14:41:00.000Z,
+    //       2022-08-23T00:44:00.000Z,
+    //       2022-08-23T01:06:00.000Z,
+    //       2022-08-23T15:12:00.000Z,
+    //       2022-08-23T15:13:00.000Z,
+    //       2022-08-23T20:47:00.000Z
+    //     ],
+    //     formattedTimeStamps: [ '8/23/2022', '8/23/2022', '8/23/2022', '8/22/2022', '8/22/2022', '8/20/2022', '8/20/2022' ]
+    //  }
 
     // x: userInfo.lambdaFuncs[i].totalInvocations, <- should be sorted in place once timestamps get grouped
     // y: userInfo.lambdaFuncs[i].timeStamps <- will be an array that gets grouped

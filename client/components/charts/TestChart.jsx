@@ -80,30 +80,12 @@ function TestChart() {
       }
 
       return dayArr.reverse();
-
-      // const yesterday = new Date(
-      //   for (let i = 0; i <= 24; i++) {
-
-      //   }
-      //   new Date().getTime() - 24 * 60 * 60 * 1000
-      // ).toLocaleTimeString();
     } else {
       //
     }
   };
 
   const labels = getLabels();
-
-  // const labels = [1, 2, 3, 4, 5, 6, 7];
-  // console.log("after labels[7], labels[8]", labels[7], labels[8]);
-  // let labelsObj = [];
-
-  // for (let i = 0; i < labels.length; i += 1) {
-  //   const currentLabel = labels[i];
-  //   labelsObj.push({ x: currentLabel, y: 0 });
-  // }
-
-  // console.log(labelsObj);
 
   const datasets = [];
   // for (let i = 0; i < userInfo.lambdaFuncs.length; i += 1) {
@@ -123,11 +105,26 @@ function TestChart() {
 
     const data = [];
 
-    for (let i = 0; i < func.formattedTimeStamps.length; i += 1) {
-      const time = func.formattedTimeStamps[i];
-      labels.includes(time)
-        ? data.push({ x: time, y: func.invocationsArray[i] })
-        : data.push({ x: time, y: 0 });
+    // for (let i = 0; i < func.formattedTimeStamps.length; i += 1) {
+    //   const time = func.formattedTimeStamps[i];
+    //   labels.includes(time)
+    //     ? data.push({ x: time, y: func.invocationsArray[i] })
+    //     : data.push({ x: time, y: 0 });
+    // }
+
+    for (let i = 0; i < labels.length; i += 1) {
+      const time = labels[i];
+
+      if (func.formattedTimeStamps.includes(time)) {
+        const index = func.formattedTimeStamps.indexOf(time);
+        data.push({ x: time, y: func.invocationsArray[index] });
+      } else {
+        data.push({ x: time, y: 0 });
+      }
+
+      // func.formattedTimeStamps.includes(time)
+      //   ? data.push({ x: time, y: func.invocationsArray[i] })
+      //   : data.push({ x: time, y: 0 });
     }
 
     datasets.push({
@@ -156,18 +153,6 @@ function TestChart() {
   //        ],
   //        formattedTimeStamps: [ '8/22', '8/22', '8/23', '8/23' ]
   // }
-
-  // const data = [];
-
-  // for (let i = 0; i < func.invocationsArray.length; i++) {
-  //   data.push({
-  //     x: func.timeStamps[i],
-  //     y: func.invocationsArray[i],
-  //   });
-  // }
-  //   const data = func.timeStamps.forEach((time, i) => labelsObj[0]);
-
-  // const data = func.invocationsArray;
 
   console.log("carmen data test", data);
 
