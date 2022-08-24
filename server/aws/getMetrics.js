@@ -103,8 +103,6 @@ const getMetrics = async (
           })
         );
 
-        // console.log("queried data: ", queriedData.MetricDataResults);
-
         data.push({
           funcName: queries[i][0].MetricStat.Metric.Dimensions[0].Value,
           invocationsArray: queriedData.MetricDataResults[0].Values.reverse(),
@@ -123,15 +121,17 @@ const getMetrics = async (
           totalCost:
             queriedData.MetricDataResults[0].Values.reduce((a, b) => a + b, 0) *
             0.0000006,
-          // dayjs('2018-04-04T16:00:00.000Z').format('DD/MM/YYYY') -> 04/04/2018 -> 4/4
           timeStamps: queriedData.MetricDataResults[0].Timestamps.reverse(),
           formattedTimeStamps: queriedData.MetricDataResults[0].Timestamps.map(
             (time) => dayjs(time).format("M/D/YYYY")
           ).reverse(),
+          formattedTime: queriedData.MetricDataResults[0].Timestamps.map(
+            (time) => dayjs(time).format("hh A")
+          ),
         });
       }
 
-      console.log("UPDATED DATA: ", data);
+      console.log("data: ", data);
       return data;
     } else {
       const queriedData = await client.send(
@@ -179,6 +179,9 @@ const getMetrics = async (
           queriedData.MetricDataResults[0].Values.reduce((a, b) => a + b, 0) *
           0.0000006,
         timeStamps: queriedData.MetricDataResults[0].Timestamps,
+        formattedTime: queriedData.MetricDataResults[0].Timestamps.map((time) =>
+          dayjs(time).format("LT")
+        ),
       };
     }
   } catch (err) {

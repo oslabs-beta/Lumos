@@ -10,6 +10,7 @@ import Metrics from "../components/Metrics.jsx";
 import Usage from "../components/Usage.jsx";
 import Charts from "../components/Charts.jsx";
 import Errors from "../components/Errors.jsx";
+import Landing from "../components/LandingPage.jsx";
 // import Card from '@mui/material';
 import "../assets/styles.css";
 // import '../assets/outerContainer.css';
@@ -36,6 +37,7 @@ function MainContainer() {
         funcValues: [],
         invocationsArray: [],
         formattedTimeStamps: [],
+        formattedTime: [],
       },
     ],
     lambdaActiveInvocations: 0,
@@ -48,22 +50,29 @@ function MainContainer() {
 
   return (
     //implement grid template outer container
-
-    <Grid container className="outerContainer">
-      <InfoContext.Provider value={[userInfo, setUserInfo]}>
-        <Nav item />
-        {/* {userInfo.loggedIn === true && (
-          <> */}
-        <Sidebar item />
-        <Header item />
-        <Metrics item />
-        <Usage item />
-        <Charts item />
-        <Errors item />
-        <Footer item />
-        {/* </> */}
-      </InfoContext.Provider>
-    </Grid>
+    <InfoContext.Provider value={[userInfo, setUserInfo]}>
+      {userInfo.loggedIn === false ? (
+        <>
+          <Grid container className="outerContainerLandingPage">
+            <Nav item />
+            <Landing />
+            <Footer item />
+          </Grid>
+        </>
+      ) : (
+        <>
+          <Grid container className="outerContainer">
+            <Nav item />
+            <Sidebar item />
+            <Metrics item />
+            <Usage item />
+            <Charts item />
+            <Errors item />
+            <Footer item />
+          </Grid>
+        </>
+      )}
+    </InfoContext.Provider>
   );
 }
 

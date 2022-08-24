@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 import React, { useState, setOpen } from "react";
-import { Button, TextField, Modal } from "@mui/material";
+import { Button, TextField, Modal, Slide } from "@mui/material";
 // import ModalUnstyled from '@mui/base/ModalUnstyled'
 
 export default function Login() {
@@ -26,76 +26,83 @@ export default function Login() {
   const submitHandler = (e) => {
     e.preventDefault();
     console.log("this is what you're getting back: ", data);
-    window.alert(`Thanks for registering ${data.firstname} click anywhere to close`);
-    
+    window.alert(
+      `Thanks for registering ${data.firstname} click anywhere to close`
+    );
+
     //make a post request to somewhere with this data
-    const { email, password, firstname, lastname } = data
+    const { email, password, firstname, lastname } = data;
 
     const result = {
       email: email,
       password: password,
       firstname: firstname,
-      lastname: lastname
-    }
-    console.log(result)
-    
+      lastname: lastname,
+    };
+    console.log(result);
+
     // post to user endPoint passing result to DB
-      fetch('/user/register', {
+    fetch("/user/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(result)
-    }).then(() => console.log('added'))
+      body: JSON.stringify(result),
+    }).then((h) => console.log("added", { h }));
     // */
-      
- handleClose();
-  };
-  // onclick event make a post request for register
 
+    handleClose();
+  };
+  // onclick event makes a post request for register
   return (
     <>
-      <Button className='LumosButton' onClick={handleOpen}>
+      <Button className="LumosButton" onClick={handleOpen}>
         {" "}
         Register{" "}
       </Button>
+
       <Modal
-        className='LoginModal'
+        className="LoginModal"
         open={open}
         onClose={handleClose}
         BackdropProps={{
           style: { backgroundColor: "transparent", boxShadow: "none" },
         }}
       >
-        <form className='loginForm' onSubmit={submitHandler}>
+        <form className="loginForm" onSubmit={submitHandler}>
           <TextField
             onChange={handleChange}
-            name='email'
-            id='outlined-basic'
-            label='email'
-            variant='outlined'
+            required
+            name="email"
+            id="outlined-basic"
+            label="email"
+            variant="outlined"
           />
           <TextField
             onChange={handleChange}
-            type='password'
-            name='password'
-            id='outlined-basic'
-            label='password'
-            variant='outlined'
+            type="password"
+            name="password"
+            id="outlined-basic"
+            label="password"
+            variant="outlined"
           />
           <TextField
             onChange={handleChange}
-            name='firstname'
-            id='outlined-basic'
-            label='firstname'
-            variant='outlined'
+            name="firstname"
+            id="outlined-basic"
+            label="firstname"
+            variant="outlined"
           />
           <TextField
             onChange={handleChange}
-            name='lastname'
-            id='outlined-basic'
-            label='lastname'
-            variant='outlined'
+            name="lastname"
+            id="outlined-basic"
+            label="lastname"
+            variant="outlined"
           />
-          <Button variant='contained' onClick={submitHandler}>
+          <Button
+            variant="contained"
+            onClick={submitHandler}
+            className="ModalButton"
+          >
             Register
           </Button>
         </form>

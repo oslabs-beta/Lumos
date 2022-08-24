@@ -117,11 +117,6 @@ function Latency() {
     data.labels = testLabels;
   }
 
-  // console.log("data.labels", data.labels);
-
-  // const timeStamp2 = [];
-  // const data2 = [];
-
   userInfo.lambdaFuncs.forEach((el) => {
     const borderColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
       Math.random() * 256
@@ -131,7 +126,7 @@ function Latency() {
       borderColor.length - 1
     )}, 0.5)`;
 
-    let resultArr = []
+    let resultArr = [];
     for (let x in Object.keys(data.labels)) {
       const keys = data.labels[x];
       for (let y = 0; y < el.formattedTimeStamps.length; y++) {
@@ -144,32 +139,18 @@ function Latency() {
           "match ?",
           time === keys
         );
-        
+
         if (time === keys) {
           resultArr.push(10);
         }
-        if(time !== keys){
-          resultArr.push(-1)
+        if (time !== keys) {
+          resultArr.push(-1);
         }
       }
     }
-    // console.log(resultArr)
-    //8/1, push to array 0
-    //8/19, pushes to array value of 8/19
-    //8/1, 8/2, 8/3, 8/4, 8/5, 8/6, 8/7
-    
-    //array: [0, 0, 0, 0, 57, 10, 5, ]
-    
-    //data.datasets[0].data = arrxay of values
 
-    //8/1 if has value otherwise 0
-    //8/2
-
-    //array of 31 elements
-    //[0, 0, 500, 0, 1, 2, 3, 4, 5, 6, 7, 8]
     data.datasets.push({
       label: el.funcName,
-      // data:  x: el.totalInvocations, y: 12 }, //y = timestamps and invocations
       data: [el.totalInvocations],
       borderColor: borderColor,
       backgroundColor: backgroundColor,
@@ -178,17 +159,7 @@ function Latency() {
     });
   });
 
-  // el.totalInvocations.map((invocation, i) => {x: el.timeStamps[i], y: invocation})
-
-  console.log("data.datasets", data.datasets);
-  console.log({ data });
-
-  console.log(data.datasets[0].data);
-
-
   useEffect(() => {}, [userInfo]);
-
-
 
   return <Line options={options} data={data} />;
 }

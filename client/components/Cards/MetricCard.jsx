@@ -46,10 +46,12 @@ export default function MetricCard() {
       <Box container className="Avg-Cost metricCard">
         <div className="cardStats">
           <div className="statsNumber">
-            {userInfo.lambdaTotalCost.toFixed(2)}
+            {userInfo.lambdaTotalCost.toFixed(10)}
           </div>
           {/* <div className="cardPercentage">+5%</div> */}
-          <div className="cardTitle">Total Cost</div>
+          <div className="cardTitle">
+            Total Cost <span className="superSet">(10^3)</span>
+          </div>
         </div>
         <div className="cardIcon">
           <div className="iconWrapper">
@@ -63,7 +65,7 @@ export default function MetricCard() {
             {userInfo.lambdaAvgDuration.toFixed(2)}
           </div>
           {/* <div className="cardPercentage">+5%</div> */}
-          <div className="cardTitle">Avg Duration</div>
+          <div className="cardTitle">Avg Duration (ms)</div>
         </div>
         <div className="cardIcon">
           <div className="iconWrapper">

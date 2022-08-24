@@ -46,8 +46,10 @@ export default function Sign() {
     })
       .then((response) => response.text())
       .then((loginData) => {
-        console.log("LOGIN DATA ", loginData);
-        loginData = true;
+        console.log({ loginData });
+        if (email && password) {
+          loginData = true;
+        }
         console.log(loginData == true);
         if (loginData == true) {
           console.log("login data: true");
@@ -73,20 +75,6 @@ export default function Sign() {
             lambdaTotalCost: 0,
             lambdaAvgDuration: 0,
           });
-          //run use effect to make a get request for all the metrics
-          // const url = "/metric";
-          // const fetchData = async () => {
-          //     try {
-          //         const response = await fetch(url);
-          //         const json = await response.json();
-          //         console.log('json: ', json , 'other : ',json.data);
-          //         setMetrics(json.data);
-          //         console.log('UPDATED STATE ', userInfo)
-          //     } catch (error) {
-          //         console.log("error", error);
-          //     }
-          // };
-          // fetchData();
         } else {
           window.alert(
             "Email is not registered or the password is incorrect, please try again."
@@ -132,7 +120,10 @@ export default function Sign() {
             label="password"
             variant="outlined"
           />
-          <Button variant="contained loginButton" onClick={submitHandler}>
+          <Button
+            variant="contained loginButton ModalButton"
+            onClick={submitHandler}
+          >
             Sign In
           </Button>
         </form>

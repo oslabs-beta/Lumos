@@ -7,51 +7,84 @@ import { InfoContext } from "../containers/MainContainer.jsx";
 function Errors() {
   // const [userInfo, setUserInfo] = useContext(InfoContext);
   const [userInfo] = useContext(InfoContext);
-  useEffect(() => {}, [userInfo]);
-
+  // useEffect(() => {}, [userInfo]);
+  let ar = [];
+  for (let i = 0; i < userInfo.lambdaFuncs.length; i += 1) {
+    const func = userInfo.lambdaFuncs[i];
+    const label = func.funcName;
+    const value = func.totalErrors;
+    console.log("func.formattedTimeStamps", func.formattedTimeStamps);
+    const timestamp = func.formattedTimeStamps
+      ? func.formattedTimeStamps[0]
+      : 0;
+    console.log({ label }, { value }, { timestamp });
+    console.log("value", value > 0);
+    if (value > 0) {
+      ar.push({
+        Label: label,
+        Status: "500",
+        Value: value,
+        Timestamp: timestamp,
+      });
+    }
+  }
+  console.log(ar);
   return (
     <Box className="Errors">
       <div className="errorsContainer">
         <Grid container spacing={0} className="errHeader">
-          <Grid item xs={3} className="Errors.children">
+          <Grid item xs={6} className="Errors.children Errors.Label">
             Label
           </Grid>
-          <Grid item xs={3} className="Errors.children">
-            Status
+          <Grid
+            item
+            xs={2}
+            className="Errors.children Errors.Count"
+            sx={{ textAlign: "right" }}
+          >
+            Errors
           </Grid>
-          <Grid item xs={2} className="Errors.children">
-            Value
-          </Grid>
-          {/* <Grid item xs={2} className="Errors.children">
-          Cost
-        </Grid> */}
-          <Grid item xs={4} className="Errors.children">
-            Timestamp
+          <Grid
+            item
+            xs={4}
+            className="Errors.children Errors.Time"
+            sx={{ textAlign: "right" }}
+          >
+            Time
           </Grid>
         </Grid>
 
-        {rows.map((row) => (
+        {ar.map((a) => (
           <Grid
             container
             spacing={1}
             style={{ width: "100%", fontSize: 12 }}
-            key={row.name}
+            key={ar.name}
             className="ErrorsChildrenContainer"
           >
-            <Grid item xs={3} className="Errors.children">
-              {row.Label}
+            <Grid
+              item
+              xs={6}
+              className="Errors.children ErrB"
+              sx={{ overflow: "hidden" }}
+            >
+              {a.Label}
             </Grid>
-            <Grid item xs={3} className="Errors.children">
-              {row.Status}
+            <Grid
+              item
+              xs={2}
+              className="Errors.children"
+              sx={{ textAlign: "right" }}
+            >
+              {a.Value}
             </Grid>
-            <Grid item xs={2} className="Errors.children">
-              {row.Value}
-            </Grid>
-            {/* <Grid item xs={2} className="Errors.children">
-            {row.Cost}
-          </Grid> */}
-            <Grid item xs={4} className="Errors.children">
-              {row.Timestamp}
+            <Grid
+              item
+              xs={4}
+              className="Errors.children"
+              sx={{ textAlign: "right" }}
+            >
+              {a.Timestamp}
             </Grid>
           </Grid>
         ))}
@@ -77,10 +110,10 @@ let date =
   today.getSeconds();
 /*
 label = function that was called 
-status = whether the function is still running, completed or errored
 value = amount of error/ less is best
 timestamp = when function status occurred 
 */
+
 const rows = [
   {
     Label: "why",
@@ -105,19 +138,3 @@ const rows = [
   },
 ];
 export default Errors;
-/*
-  
-  
-  for (let i = 0; i < userInfo.lambdaFuncs.length; i += 1) {
-    const func = userInfo.lambdaFuncs[i];
-    const label = func.funcName;
-    const value = func.totalErrors;
-    const timestamp = func.timestamp;
-    /* 
-    if(func.totalErrors > 0){
-      rows.Label = label
-      rows.Status = 'Errors'
-      rows.Value = value
-      rows.Timestamp = timestamp
-    }
-    //  let status = 'complete'      */

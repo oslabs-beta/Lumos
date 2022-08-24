@@ -2,9 +2,12 @@ import React, { useContext } from "react";
 import { Button } from "@mui/material";
 import { InfoContext } from "../containers/MainContainer.jsx";
 
+// lottie icons
+import Lottie from "lottie-react";
+import dashboardIcon from "../assets/lotties/dashboardIcon.json";
+
 export default function MonthButton() {
   const [userInfo, setUserInfo] = useContext(InfoContext);
-
   //run a fetch request to metric router time period 24hr
   let start = new Date(
     Math.round(new Date().getTime()) - 24 * 30 * 3600 * 1000
@@ -14,8 +17,6 @@ export default function MonthButton() {
   //if userInfo.loggedIn !== return 'you must be signed in'  else submithandler
   const submitHandler = (e) => {
     e.preventDefault();
-    // console.log('I am the month button');
-    // setUserInfo({ timePeriod: "month" });
     fetch("/metric", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -23,8 +24,6 @@ export default function MonthButton() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("RESPONSE DATA: ", data);
-        // console.log("RESPONSE DATA TYPE: ", typeof data);
         // update state obj with data values
         let activeInvocations = 0;
         let totalErrors = 0;
@@ -37,11 +36,6 @@ export default function MonthButton() {
           totalCost += el.totalCost;
         });
 
-        // console.log('total duration: ', totalDuration);
-
-        // let totalDuration = 0;
-        // data.data.forEach((el) => totalDuration += el.totalDuration)
-
         setUserInfo({
           loggedIn: true,
           timePeriod: "month",
@@ -50,17 +44,18 @@ export default function MonthButton() {
           lambdaTotalErrors: totalErrors,
           lambdaAvgThrottle: 41,
           lambdaTotalCost: totalCost,
-          // lambdaAvgDuration: totalDuration / data.data.length
           lambdaAvgDuration: totalDuration,
         });
-
-        // console.log("UPDATED STATE: ", userInfo.timePeriod);
       });
   };
   return (
-    <Button className="LumosButton" onClick={submitHandler}>
-      {" "}
-      30 days
-    </Button>
+    <div className="sidebarIcon">
+      <Lottie
+        animationData={dashboardIcon}
+        loop={true}
+        onClick={submitHandler}
+      />
+      <span className="sidebarIconText">Month</span>
+    </div>
   );
 }

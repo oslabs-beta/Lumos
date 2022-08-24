@@ -30,7 +30,6 @@ render(
     <ThemeProvider theme={theme}>
       <Routes>
         <Route path="/" exact element={<App />} />
-        {/* <Route path="/test" element={<TestChart />} exact /> */}
       </Routes>
     </ThemeProvider>
   </BrowserRouter>,

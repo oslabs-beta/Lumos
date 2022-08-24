@@ -1,56 +1,99 @@
-# AWS-Lambda-Visualizer
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+    <img src='./client/assets/Lumos_Logo.png' width="600px" align="center" alt="Lumos Logo" >
+    <h1>Lumos Lambda Metrics Visualizer</h1>
+</div>
 
-<a href="https://excalidraw.com/#json=oPciaBeml8N1pVKFR27uB,cSQoBdLi9vR_jbHPsHer8w" target="_blank">Visual Guild Linked Here</a>
-## Creating a New Branch
-1. Clone repo to your local system.
-- `git clone 
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-lumos">About Lumos</a></li> 
+    <li><a href="#technologies-used">Techologies Used</a></li>      
+    <li><a href="#getting-started">Getting Started</a></li>      
+    <li><a href="#key-lambda-metrics">Key Lambda Metrics</a></li>   
+    <li><a href="#how-to-contribute">How to Contribute</a></li>     
+    <li><a href="#license">License</a></li>
+    <li><a href="#contributors">Contributors</a></li>
+  </ol>
+</details>
 
-2. Create or go to `dev` branch
-- `git checkout dev`
-<a><img src="./docs/assests/images/git1.png"/></a>
+<!-- ABOUT -->
 
-3. Create or go to your branch
-- `git checkout -b [your-name/feature]`
+## About Lumos
 
-4. Check what branch you are currently on
-- `git branch`
-<a><img src="./docs/assests/images/git3.png"/></a>
+Serverless architecture is an integral benefit of cloud computing which allows developers to build and run services without having to manage the underlying infrastructure. Amazon Web Services' (AWS) Lambda is the dominant service in the serverless market and is relied upon by the world's largest companies due to its cost-effective, event-driven service that runs code in response to events and automatically manages the computing resources required by that code.
 
-## Starting Workflow
-1. Make sure local branch is up to date with `dev` branch before working
-- `git checkout dev` (locally switch to dev branch)
-- `git pull origin dev` (pull updates of dev down to your localc system)
-- `git checkout <YOUR BRANCH>` (switch back to your branch locally)
-- `git merge dev` (brings dev int your branch locally)
-- Resolve conflicts or `:q` if there aren't any 
+One drawback to using AWS's services is that navigating the AWS console can be quite challenging. Additionally, lack of descriptive documentation pertaining to AWS's Lambda service makes it difficult to visualize key function metrics at a glance. To solve this, we built Lumos, a free and open-source AWS lambda monitoring tool that allows users to connect their AWS account to track and visualize their key lambda metrics at a glance on a visually appealing UI.
 
-2. Create or go to your branch. PRO TIP: Use tab to autofill
-- `git checkout -b [your-name/feature]`
-<a><img src="./docs/assests/images/git2.png"/></a>
+## Technologies Used
 
-3. Use `git branch` to make sure you are on the correct branch
-<a><img src="./docs/assests/images/git4.png"/></a>
+- [React](https://reactjs.org/)
+- [Material-UI](https://material-ui.com)
+- [Chart.js](https://www.chartjs.org/)
+- [AWS Lambda](https://aws.amazon.com/lambda/)
+- [AWS SDK](https://aws.amazon.com/sdk-for-javascript/)
+- [AWS STS](https://docs.aws.amazon.com/STS/latest/APIReference/welcome.html)
+- [Node](https://nodejs.org/en/)
+- [Express](https://expressjs.com)
+- [PostgreSQL](https://postgresql.org)
 
-## Saving and Uploading Code
-1. Before pushing code to GitHub. Merge any updates from `dev`. Solve any conflicts (aka differences) between `dev` and your local branch 
-- `git checkout dev` (locally switch to dev branch)
-- `git pull origin dev` (pull updates of dev down to your localc system)
-- `git checkout <YOUR BRANCH>` (switch back to your branch locally)
-- `git merge dev` (brings dev int your branch locally)
-- Resolve conflicts or `:q` if there aren't any 
+<!-- GETTING STARTED -->
 
-2. Git add & git commit your files. MAKE SURE YOU ARE ON YOUR BRANCH BEFORE COMMITING! (use `git branch` to check)
-- `git add <YOUR FILES>`
-- `git commit -m"<YOUR COMMENT>`
+## Getting Started
 
-3. Push files to your branch
-- `git push origin <YOUR BRANCH>`
+Lumos requires access keys to sign programmatic requests to the AWS SDK. It is best practice to create an IAM user with permanent long-term credentials to interact with AWS services directly.
 
-4. Create a pull request on GitHub
-  - base: dev <-- compare: [YOUR BRANCH NAME]
-  - add comments
-  - add reviewers (on the right sidebar)
-  - click create pull request
-<a><img src="./docs/assests/images/git6.png"/></a>
+1. In your AWS console, create an new IAM user. Make sure to check off "Access key - Programmatic access" when selecting an AWS credential type. Save these keys in a secure location. **_They cannot be retrieved after you've completed your IAM setup!_** If you lose your key, you will have to delete the access key and create a new one.
 
-5. Review, Approve and Merge pull request to `dev` branch
+- <img src='./client/assets/README/IAMSetup.png'/>
+
+2. Attach two existing policies directly to your IAM user's security policy:
+
+- <img src='./client/assets/README/IAMSetupPermissions.png'/>
+
+3. [Download and install the AWS CLI.](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+4. From your terminal, access the AWS CLI by typing in
+   `aws configure`. Follow the steps on your screen and input your access key ID and secret access key.
+
+<!-- EXPLAINING KEY LAMBDA METRICS FOCUSED ON -->
+
+## Key Lambda Metrics
+
+The key lambda metrics we found to be of most interest to users were invocations, durations, and errors. One can visualize their lambda functions metrics across three different time periods: 24 hours, 1 week, or 1 month. Users can visualize their insights through two charts: donut and line. A donut chart will give an overview of all active invocations relating to the functions. The line chart will give a visualization of the number of times each lambda function has been invoked across selected time periods. Lumos also approximates the total cost of a user's lambda functions based on the function's duration and memory usage.
+
+<!-- CONTRIBUTING -->
+
+## How to Contribute
+
+At Lumos, we open-sourced the project with the intention of having amazing people iterate on our project.
+
+If you have any suggestions on how to make Lumos better, please follow the steps below:
+
+1. Fork Lumos
+2. Create your Feature Branch (`git checkout -b feature/YourFeature`)
+3. Add your changes using (`git add .`)
+4. Commit your Changes (`git commit -m 'Add Your Feature'`)
+5. Push to the Branch (`git push origin feature/YourFeature`)
+6. Open a Pull Request
+7. Hit the star button!!
+
+Thank you and we truly appreciate all your contributions!
+
+<!-- LICENSE -->
+
+## License
+
+Distributed under the MIT License.
+
+<!-- CONTACT -->
+
+## Contributors
+
+- Mario Arraya [Github](https://github.com/marioarraya) | [Linkedin]()
+- Adithya Chandrashekar [Github](https://github.com/addychandrashekar) | [Linkedin](https://www.linkedin.com/in/addyc/)
+- Carmen Hu [Github](https://github.com/BadWithNames) | [Linkedin](https://www.linkedin.com/in/hu-carmen)
+- Michael Negron [Github](https://github.com/InternalShadow) | [Linkedin](https://www.linkedin.com/in/MichaelVNegron)
+- Adnan Pervez [Github](https://github.com/apervez) | [Linkedin](https://www.linkedin.com/in/adnan-pervez)
