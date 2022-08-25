@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
-import React, { useState, setOpen } from "react";
+import React, { useState, setOpen, useContext } from "react";
 import { Button, TextField, Modal, Slide } from "@mui/material";
+import { InfoContext } from "../containers/MainContainer.jsx";
 // import ModalUnstyled from '@mui/base/ModalUnstyled'
 
 export default function Login() {
@@ -8,7 +9,8 @@ export default function Login() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  //container info
+  const [userInfo, setUserInfo] = useContext(InfoContext);
   //register user state
   const [data, setData] = useState({
     email: "",
@@ -26,8 +28,6 @@ export default function Login() {
   const submitHandler = (e) => {
     e.preventDefault();
     const { email, password, firstname, lastname } = data;
-    console.log("is email not equal to a blank string ", email !== "");
-    console.log("is email  equal to a blank string ", email === "");
     if (
       email === "" ||
       password === "" ||
@@ -41,7 +41,7 @@ export default function Login() {
         lastname: "",
       });
       handleClose();
-      window.alert("Cannot process request All fields need to be completed");
+      window.alert("Cannot process request. All fields need to be completed");
     }
     if (
       email !== "" &&
@@ -51,10 +51,8 @@ export default function Login() {
     ) {
       console.log("this is what you're getting back: ", data);
       window.alert(
-        `Thanks for registering ${data.email} click anywhere to close`
+        `Thanks for registering ${data.firstname}. Click anywhere to close.`
       );
-
-      //make a post request to somewhere with this data
 
       const result = {
         email: email,
@@ -62,7 +60,6 @@ export default function Login() {
         firstname: firstname,
         lastname: lastname,
       };
-      console.log(result);
 
       // post to user endPoint passing result to DB
       fetch("/user/register", {
@@ -102,7 +99,9 @@ export default function Login() {
           />
           <TextField
             onChange={handleChange}
-            // type="password"
+            required
+            type="password"
+            placeholder="password"
             name="password"
             id="outlined-basic"
             label="password"
@@ -110,6 +109,7 @@ export default function Login() {
           />
           <TextField
             onChange={handleChange}
+            required
             name="firstname"
             id="outlined-basic"
             label="firstname"
@@ -117,6 +117,7 @@ export default function Login() {
           />
           <TextField
             onChange={handleChange}
+            required
             name="lastname"
             id="outlined-basic"
             label="lastname"

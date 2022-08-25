@@ -50,11 +50,13 @@ export default function MonthButton() {
   };
   return (
     <div className="sidebarIcon">
-      <Lottie
-        animationData={dashboardIcon}
-        loop={true}
-        onClick={submitHandler}
-      />
+      <div className="sideBarLottie">
+        <Lottie
+          animationData={dashboardIcon}
+          loop={true}
+          onClick={submitHandler}
+        />
+      </div>
       <span className="sidebarIconText">Month</span>
     </div>
   );

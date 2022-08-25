@@ -25,7 +25,7 @@
 
 Serverless architecture is an integral benefit of cloud computing which allows developers to build and run services without having to manage the underlying infrastructure. Amazon Web Services' (AWS) Lambda is the dominant service in the serverless market and is relied upon by the world's largest companies due to its cost-effective, event-driven service that runs code in response to events and automatically manages the computing resources required by that code.
 
-One drawback to using AWS's services is that navigating the AWS console can be quite challenging. Additionally, lack of descriptive documentation pertaining to AWS's Lambda service makes it difficult to visualize key function metrics at a glance. To solve this, we built Lumos, a free and open-source AWS lambda monitoring tool that allows users to connect their AWS account to track and visualize their key lambda metrics at a glance on a visually appealing UI.
+One drawback to using AWS's services is that navigating the AWS console can be quite challenging. Additionally, lack of descriptive documentation pertaining to AWS's Lambda service makes it difficult to visualize key function metrics at a glance. To solve this, we built Lumos, a free and open-source AWS lambda monitoring tool that allows users to connect their AWS account to track and visualize their key lambda metrics on a visually appealing UI.
 
 ## Technologies Used
 
@@ -35,9 +35,13 @@ One drawback to using AWS's services is that navigating the AWS console can be q
 - [AWS Lambda](https://aws.amazon.com/lambda/)
 - [AWS SDK](https://aws.amazon.com/sdk-for-javascript/)
 - [AWS STS](https://docs.aws.amazon.com/STS/latest/APIReference/welcome.html)
+- [AWS CloudWatch](https://aws.amazon.com/cloudwatch/)
 - [Node](https://nodejs.org/en/)
 - [Express](https://expressjs.com)
 - [PostgreSQL](https://postgresql.org)
+- [Webpack](https://webpack.js.org/)
+- [Bcrypt](https://www.npmjs.com/package/bcrypt)
+- [JSON Web Token](https://jwt.io/)
 
 <!-- GETTING STARTED -->
 
@@ -92,8 +96,8 @@ Distributed under the MIT License.
 
 ## Contributors
 
-- Mario Arraya [Github](https://github.com/marioarraya) | [Linkedin]()
 - Adithya Chandrashekar [Github](https://github.com/addychandrashekar) | [Linkedin](https://www.linkedin.com/in/addyc/)
-- Carmen Hu [Github](https://github.com/BadWithNames) | [Linkedin](https://www.linkedin.com/in/hu-carmen)
-- Michael Negron [Github](https://github.com/InternalShadow) | [Linkedin](https://www.linkedin.com/in/MichaelVNegron)
 - Adnan Pervez [Github](https://github.com/apervez) | [Linkedin](https://www.linkedin.com/in/adnan-pervez)
+- Carmen Hu [Github](https://github.com/BadWithNames) | [Linkedin](https://www.linkedin.com/in/hu-carmen)
+- Mario Arraya [Github](https://github.com/marioarraya) | [Linkedin](https://www.linkedin.com/in/mario-arraya/)
+- Michael Negron [Github](https://github.com/InternalShadow) | [Linkedin](https://www.linkedin.com/in/MichaelVNegron)

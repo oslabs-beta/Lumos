@@ -2,8 +2,6 @@
 import React, { useState, setOpen, useContext, useEffect } from "react";
 import { Button, TextField, Modal } from "@mui/material";
 import { InfoContext } from "../containers/MainContainer.jsx";
-// import GetAllMetrics from './fetchMetrics.jsx'
-// import ModalUnstyled from '@mui/base/ModalUnstyled'
 
 export default function Sign() {
   //use effect hook on successful login get all metrics
@@ -43,20 +41,19 @@ export default function Sign() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(result),
     })
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((loginData) => {
-        if (email && password) {
-          loginData = true;
-        }
+        const { verifiedUser, firstName, lastName } = loginData;
 
-        if (loginData == true) {
+        if (verifiedUser == true) {
           window.alert(`You're signed in ${data.email}`);
           //set flag to true
           setUserInfo({
             timePeriod: "day",
             loggedIn: true,
             user_name: "",
-            first_name: "",
+            first_name: firstName,
+            last_name: lastName,
             user_id: "",
             lambdaFuncs: [
               {
@@ -104,6 +101,7 @@ export default function Sign() {
         <form className="loginForm" onSubmit={submitHandler}>
           <TextField
             onChange={handleChange}
+            required
             name="email"
             id="outlined-basic"
             label="email"
@@ -111,6 +109,7 @@ export default function Sign() {
           />
           <TextField
             onChange={handleChange}
+            required
             type="password"
             name="password"
             id="outlined-basic"

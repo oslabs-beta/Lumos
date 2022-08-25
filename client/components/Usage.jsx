@@ -6,7 +6,6 @@ import UsageDoughnut from "../components/charts/UsageDoughnut.jsx";
 function Usage() {
   return (
     <Box className="Usage">
-      {/* <div className="cardTitle">Usage</div> */}
       <div className="usageChartContainer">
         <UsageDoughnut />
       </div>

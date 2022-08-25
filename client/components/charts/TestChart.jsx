@@ -95,15 +95,32 @@ function TestChart() {
 
       if (userInfo.timePeriod !== "day") {
         if (func.formattedTimeStamps.includes(time)) {
-          const index = func.formattedTimeStamps.indexOf(time);
-          data.push({ x: time, y: func.invocationsArray[index] });
+          // const index = func.formattedTimeStamps.indexOf(time);
+          let sum = 0;
+
+          for (let i = 0; i < func.formattedTimeStamps.length; i++) {
+            if (func.formattedTimeStamps[i] === time) {
+              sum += func.invocationsArray[i];
+            }
+          }
+
+          data.push({ x: time, y: sum });
         } else {
           data.push({ x: time, y: 0 });
         }
       } else {
         if (func.formattedTime && func.formattedTime.includes(time)) {
-          const index = func.formattedTime.indexOf(time);
-          data.push({ x: time, y: func.invocationsArray[index] });
+          // const timeObj = {};
+          // const index = func.formattedTime.indexOf(time);
+
+          let sum = 0;
+          for (let i = 0; i < func.formattedTime.length; i++) {
+            if (func.formattedTime[i] === time) {
+              sum += func.invocationsArray[i];
+            }
+          }
+
+          data.push({ x: time, y: sum });
         } else {
           data.push({ x: time, y: 0 });
         }

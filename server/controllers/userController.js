@@ -37,13 +37,19 @@ userController.verifyUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const query = `SELECT email, password FROM users WHERE email='${email}'`;
+    const query = `SELECT email, password, firstname, lastname FROM users WHERE email='${email}'`;
     db.query(query)
       .then((data) => {
         bcrypt.compare(password, data.rows[0].password, (err, result) => {
           if (result) {
             res.locals.password = result;
-            res.locals.verifiedUser = true;
+
+            console.log(data.rows[0]);
+            res.locals.user = {
+              verifiedUser: true,
+              firstName: data.rows[0].firstname,
+              lastName: data.rows[0].lastname,
+            };
             return next();
           } else {
             res.locals.verifiedUser = false;

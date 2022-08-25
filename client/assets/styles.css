@@ -37,11 +37,45 @@
   display: grid !important;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
+  padding: 0px 10%;
+}
+
+ul.HeroTechStack li {
+  list-style: none;
+}
+
+ul.HeroTechStack li a {
+  padding: 0;
+  text-decoration: none;
+  color: gray;
+}
+
+ul.HeroTechStack li a:hover {
+  color: #d86613;
+}
+
+ul.HeroTechStack {
+  padding: 0;
 }
 
 .Hero {
-  width: 50%;
+  width: 100%;
   margin: auto;
+}
+
+.Hero h1 {
+  font-weight: 300;
+  font-size: 3em;
+  letter-spacing: 5px;
+}
+
+.Hero h6 {
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.Hero p {
+  text-transform: none;
 }
 
 /* Center CSS */
@@ -93,6 +127,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.LumosLogoBox h2 {
+  font-weight: 300;
+  letter-spacing: 2px;
 }
 
 .LumosLogo {
@@ -283,7 +322,6 @@
   box-shadow: 9px 9px 16px rgb(163, 177, 198, 0.2),
     -9px -9px 16px rgba(255, 255, 255, 0.3);
   height: 100%;
-  overflow: scroll;
 }
 
 .errorsContainer {
@@ -377,8 +415,15 @@
 }
 .sidebarIcon:hover {
   cursor: pointer;
-  background-color: rgb(31, 24, 24);
-  color: rgb(243, 40, 40);
+  color: #d86613;
+  background-color: #f3f3f3;
+  box-shadow: 1px 0px 25px #00000015;
+  transition: 1s;
+}
+
+.sideBarLottie {
+  max-height: 40px;
+  margin-top: -5px;
 }
 
 .sidebarIcon img {
@@ -399,6 +444,34 @@
   grid-area: Footer;
   font-size: 12px;
   height: 80px;
+  justify-content: normal;
+}
+
+.footer-inner-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0px 30px;
+}
+
+.footer-left {
+  text-align: left;
+}
+
+.footer-left a {
+  color: gray;
+  text-decoration: none;
+}
+
+.footer-left a:hover {
+  color: #d86613;
+  text-decoration: none;
+}
+.footer-right {
+  text-align: right;
+}
+
+.footer-middle {
+  text-align: center;
 }
 
 /* Metric Cards CSS */
