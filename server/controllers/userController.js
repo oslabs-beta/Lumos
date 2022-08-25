@@ -1,5 +1,5 @@
-const db = require('../models/UserModels');
-const bcrypt = require('bcryptjs');
+const db = require("../models/UserModels");
+const bcrypt = require("bcryptjs");
 
 const userController = {};
 
@@ -11,19 +11,22 @@ userController.createUser = async (req, res, next) => {
       else {
         const query = `INSERT INTO users (email, password, firstname, lastname) VALUES ('${email}', '${hash}', '${firstname}', '${lastname}')`;
         db.query(query)
-          .then(() => next())
+          .then(() => {
+            res.locals.password = hash;
+            return next();
+          })
           .catch(() =>
             next({
-              log: 'Cannot create user',
+              log: "Cannot create user",
               status: 400,
-              message: 'Cannot create user',
-            }),
+              message: "Cannot create user",
+            })
           );
       }
     });
   } catch (err) {
     return next({
-      log: 'Error occurred in userController.createUser',
+      log: "Error occurred in userController.createUser",
       status: 400,
       message: err,
     });
@@ -45,16 +48,26 @@ userController.verifyUser = async (req, res, next) => {
           } else {
             res.locals.verifiedUser = false;
             return next({
-              log: 'Error occurred in userController.verifyUser',
+              log: "Error occurred in userController.verifyUser",
               status: 401,
               message: err,
             });
           }
         });
       })
-      .catch((err) => next(err));
+      .catch((err) =>
+        next({
+          log: "Error occurred in userController.verifyUser",
+          status: 401,
+          message: err,
+        })
+      );
   } catch (err) {
-    return next(err);
+    return next({
+      log: "Error occurred in userController.verifyUser",
+      status: 401,
+      message: err,
+    });
   }
 };
 

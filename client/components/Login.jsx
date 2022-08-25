@@ -25,31 +25,55 @@ export default function Login() {
   //register user on submit
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("this is what you're getting back: ", data);
-    window.alert(
-      `Thanks for registering ${data.firstname} click anywhere to close`
-    );
-
-    //make a post request to somewhere with this data
     const { email, password, firstname, lastname } = data;
+    console.log("is email not equal to a blank string ", email !== "");
+    console.log("is email  equal to a blank string ", email === "");
+    if (
+      email === "" ||
+      password === "" ||
+      firstname === "" ||
+      lastname === ""
+    ) {
+      setData({
+        email: "",
+        password: "",
+        firstname: "",
+        lastname: "",
+      });
+      handleClose();
+      window.alert("Cannot process request All fields need to be completed");
+    }
+    if (
+      email !== "" &&
+      password !== "" &&
+      firstname !== "" &&
+      lastname !== ""
+    ) {
+      console.log("this is what you're getting back: ", data);
+      window.alert(
+        `Thanks for registering ${data.email} click anywhere to close`
+      );
 
-    const result = {
-      email: email,
-      password: password,
-      firstname: firstname,
-      lastname: lastname,
-    };
-    console.log(result);
+      //make a post request to somewhere with this data
 
-    // post to user endPoint passing result to DB
-    fetch("/user/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(result),
-    }).then((h) => console.log("added", { h }));
-    // */
+      const result = {
+        email: email,
+        password: password,
+        firstname: firstname,
+        lastname: lastname,
+      };
+      console.log(result);
 
-    handleClose();
+      // post to user endPoint passing result to DB
+      fetch("/user/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(result),
+      }).then((h) => console.log("added", { h }));
+      // */
+
+      handleClose();
+    }
   };
   // onclick event makes a post request for register
   return (
@@ -78,7 +102,7 @@ export default function Login() {
           />
           <TextField
             onChange={handleChange}
-            type="password"
+            // type="password"
             name="password"
             id="outlined-basic"
             label="password"

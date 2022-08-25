@@ -29,7 +29,7 @@ export default function Sign() {
   // onclick event make a post request for login
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("Sign in data: ", data);
+
     //make a post request to somewhere with this data
     const { email, password } = data;
 
@@ -37,7 +37,6 @@ export default function Sign() {
       email: email,
       password: password,
     };
-    console.log(result);
 
     fetch("/user/login", {
       method: "POST",
@@ -46,13 +45,11 @@ export default function Sign() {
     })
       .then((response) => response.text())
       .then((loginData) => {
-        console.log({ loginData });
         if (email && password) {
           loginData = true;
         }
-        console.log(loginData == true);
+
         if (loginData == true) {
-          console.log("login data: true");
           window.alert(`You're signed in ${data.email}`);
           //set flag to true
           setUserInfo({

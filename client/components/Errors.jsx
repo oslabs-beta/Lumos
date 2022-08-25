@@ -13,12 +13,9 @@ function Errors() {
     const func = userInfo.lambdaFuncs[i];
     const label = func.funcName;
     const value = func.totalErrors;
-    console.log("func.formattedTimeStamps", func.formattedTimeStamps);
     const timestamp = func.formattedTimeStamps
       ? func.formattedTimeStamps[0]
       : 0;
-    console.log({ label }, { value }, { timestamp });
-    console.log("value", value > 0);
     if (value > 0) {
       ar.push({
         Label: label,
@@ -28,7 +25,6 @@ function Errors() {
       });
     }
   }
-  console.log(ar);
   return (
     <Box className="Errors">
       <div className="errorsContainer">

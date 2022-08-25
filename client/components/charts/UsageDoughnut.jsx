@@ -16,8 +16,6 @@ function UsageDoughnut() {
     funcInvocations.push(el.totalInvocations);
   });
 
-  console.log("funcNames: ", funcNames, { funcInvocations });
-
   const borderColor1 = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
     Math.random() * 256
   )}, ${Math.floor(Math.random() * 256)})`;

@@ -128,6 +128,8 @@ function TestChart() {
     });
   }
 
+  console.log("datasets: ", datasets);
+
   const data = {
     labels: labels,
     datasets: datasets,
