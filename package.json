@@ -4,6 +4,7 @@
   "description": "<a href=\"https://excalidraw.com/#json=oPciaBeml8N1pVKFR27uB,cSQoBdLi9vR_jbHPsHer8w\" target=\"_blank\">Visual Guild Linked Here</a> ## Creating a New Branch 1. Clone repo to your local system. - `git clone",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config ./webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve",
     "windows-dev": "concurrently \"NODE_ENV=development node server/server.js\" \"NODE_ENV=development webpack serve --open\"",
