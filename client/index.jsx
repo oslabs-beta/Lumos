@@ -1,8 +1,11 @@
+/* eslint-disable linebreak-style */
 import React from "react";
 import { render } from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-import App from "./App.jsx";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
+import App from "./App.jsx";
+
+import TestChart from "./components/charts/TestChart.jsx";
 
 const theme = createTheme({
   palette: {
@@ -25,7 +28,9 @@ const theme = createTheme({
 render(
   <BrowserRouter>
     <ThemeProvider theme={theme}>
-      <App />
+      <Routes>
+        <Route path="/" exact element={<App />} />
+      </Routes>
     </ThemeProvider>
   </BrowserRouter>,
   document.getElementById("root")
