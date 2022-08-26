@@ -1,20 +1,21 @@
 /* eslint-disable linebreak-style */
-import React, {useState, useEffect, createContext,useContext} from 'react';
-import {
-  Grid, Box,
-} from '@mui/material';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
-import Nav from '../components/Nav.jsx';
-import Sidebar from '../components/Sidebar.jsx';
-import Metrics from '../components/Metrics.jsx';
+import React, { useState, useEffect, createContext, useContext } from "react";
+import { Grid, Box } from "@mui/material";
+import Header from "../components/Header.jsx";
+import Footer from "../components/Footer.jsx";
+import Nav from "../components/Nav.jsx";
+import Sidebar from "../components/Sidebar.jsx";
+import Metrics from "../components/Metrics.jsx";
 // import MetricCard from '../components/Cards/MetricCard.jsx';
-import Usage from '../components/Usage.jsx';
-import Charts from '../components/Charts.jsx';
-import Errors from '../components/Errors.jsx';
+import Usage from "../components/Usage.jsx";
+import Charts from "../components/Charts.jsx";
+import Errors from "../components/Errors.jsx";
+import Landing from "../components/LandingPage.jsx";
 // import Card from '@mui/material';
-import '../assets/styles.css';
+import "../assets/styles.css";
 // import '../assets/outerContainer.css';
+
+import TestChart from "../components/charts/TestChart.jsx";
 
 export const InfoContext = createContext();
 
@@ -25,64 +26,54 @@ function MainContainer() {
     loggedIn: false,
     user_name: "",
     first_name: "",
+    last_name: "",
     user_id: "",
-    lambdaFuncs: [{ funcName: "", totalInvocations : 0, totalErrors: 0, timeStamps: [], funcValues: [] }],
+    timePeriod: "day",
+    lambdaFuncs: [
+      {
+        funcName: "",
+        totalInvocations: 0,
+        totalErrors: 0,
+        timeStamps: [],
+        funcValues: [],
+        invocationsArray: [],
+        formattedTimeStamps: [],
+        formattedTime: [],
+      },
+    ],
     lambdaActiveInvocations: 0,
     lambdaTotalErrors: 0,
-    lambdaAvgThrottle: 0, 
     lambdaAvgDuration: 0,
-    lambdaTotalCost: 0
+    lambdaTotalCost: 0,
   });
 
-  // const allLambdaFuncs = [
-//   {
-//   funcName: "", // label
-//   totalInvocations: this.funcValues.reduce((a, b) => a + b, 0), // total sum
-//   totalErrors: 0,
-//   timestamps: [],
-//   funcValues: []
-//   }
-// ]
-
-  // Metrics card
-    //isLoggedIn: false;
-    //totalInvocation
-    //totalErrors
-    //throttle
-    //Duration
-    //Invocation percentage
-    //Error percentage
-    //Invocation percentage
-    //Duration percentage
-  // Errors log
-    // label
-    // status
-    // value
-    // timestamp
-  // Donut chart
-    // all lambda functions
-  // Line chart
-    // all lambda functions
-  useEffect(() => console.log(userInfo), [userInfo]);
+  useEffect(() => console.log("Current State", userInfo), [userInfo]);
 
   return (
     //implement grid template outer container
-    <Grid container className="outerContainer">
-      <InfoContext.Provider value={[userInfo, setUserInfo]}>
-      <Nav item />
-      {/* {userInfo.loggedIn === true &&
-      <> */}
-        <Sidebar item />
-        <Header item />
-        <Metrics item />
-        <Usage item  />
-        <Charts item />
-        <Errors item />
-        <Footer item />
-      {/* </>
-    } */}
-      </InfoContext.Provider>
-    </Grid>
+    <InfoContext.Provider value={[userInfo, setUserInfo]}>
+      {userInfo.loggedIn === false ? (
+        <>
+          <Grid container className="outerContainerLandingPage">
+            <Nav item />
+            <Landing />
+            <Footer item />
+          </Grid>
+        </>
+      ) : (
+        <>
+          <Grid container className="outerContainer">
+            <Nav item />
+            <Sidebar item />
+            <Metrics item />
+            <Usage item />
+            <Charts item />
+            <Errors item />
+            <Footer item />
+          </Grid>
+        </>
+      )}
+    </InfoContext.Provider>
   );
 }
 

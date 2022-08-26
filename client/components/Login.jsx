@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
-import React, { useState, setOpen } from "react";
-import { Button, TextField, Modal } from "@mui/material";
+import React, { useState, setOpen, useContext } from "react";
+import { Button, TextField, Modal, Slide } from "@mui/material";
+import { InfoContext } from "../containers/MainContainer.jsx";
 // import ModalUnstyled from '@mui/base/ModalUnstyled'
 
 export default function Login() {
@@ -8,7 +9,8 @@ export default function Login() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  //container info
+  const [userInfo, setUserInfo] = useContext(InfoContext);
   //register user state
   const [data, setData] = useState({
     email: "",
@@ -25,77 +27,110 @@ export default function Login() {
   //register user on submit
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("this is what you're getting back: ", data);
-    window.alert(`Thanks for registering ${data.firstname} click anywhere to close`);
-    
-    //make a post request to somewhere with this data
-    const { email, password, firstname, lastname } = data
-
-    const result = {
-      email: email,
-      password: password,
-      firstname: firstname,
-      lastname: lastname
+    const { email, password, firstname, lastname } = data;
+    if (
+      email === "" ||
+      password === "" ||
+      firstname === "" ||
+      lastname === ""
+    ) {
+      setData({
+        email: "",
+        password: "",
+        firstname: "",
+        lastname: "",
+      });
+      handleClose();
+      window.alert("Cannot process request. All fields need to be completed");
     }
-    console.log(result)
-    
-    // post to user endPoint passing result to DB
-      fetch('/user/register', {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(result)
-    }).then(() => console.log('added'))
-    // */
-      
- handleClose();
-  };
-  // onclick event make a post request for register
+    if (
+      email !== "" &&
+      password !== "" &&
+      firstname !== "" &&
+      lastname !== ""
+    ) {
+      console.log("this is what you're getting back: ", data);
+      window.alert(
+        `Thanks for registering ${data.firstname}. Click anywhere to close.`
+      );
 
+      const result = {
+        email: email,
+        password: password,
+        firstname: firstname,
+        lastname: lastname,
+      };
+
+      // post to user endPoint passing result to DB
+      fetch("/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+        },
+        body: JSON.stringify(result),
+      }).then((h) => console.log("added", { h }));
+      // */
+
+      handleClose();
+    }
+  };
+  // onclick event makes a post request for register
   return (
     <>
-      <Button className='LumosButton' onClick={handleOpen}>
+      <Button className="LumosButton" onClick={handleOpen}>
         {" "}
         Register{" "}
       </Button>
+
       <Modal
-        className='LoginModal'
+        className="LoginModal"
         open={open}
         onClose={handleClose}
         BackdropProps={{
           style: { backgroundColor: "transparent", boxShadow: "none" },
         }}
       >
-        <form className='loginForm' onSubmit={submitHandler}>
+        <form className="loginForm" onSubmit={submitHandler}>
           <TextField
             onChange={handleChange}
-            name='email'
-            id='outlined-basic'
-            label='email'
-            variant='outlined'
+            required
+            name="email"
+            id="outlined-basic"
+            label="email"
+            variant="outlined"
           />
           <TextField
             onChange={handleChange}
-            type='password'
-            name='password'
-            id='outlined-basic'
-            label='password'
-            variant='outlined'
+            required
+            type="password"
+            placeholder="password"
+            name="password"
+            id="outlined-basic"
+            label="password"
+            variant="outlined"
           />
           <TextField
             onChange={handleChange}
-            name='firstname'
-            id='outlined-basic'
-            label='firstname'
-            variant='outlined'
+            required
+            name="firstname"
+            id="outlined-basic"
+            label="firstname"
+            variant="outlined"
           />
           <TextField
             onChange={handleChange}
-            name='lastname'
-            id='outlined-basic'
-            label='lastname'
-            variant='outlined'
+            required
+            name="lastname"
+            id="outlined-basic"
+            label="lastname"
+            variant="outlined"
           />
-          <Button variant='contained' onClick={submitHandler}>
+          <Button
+            variant="contained"
+            onClick={submitHandler}
+            className="ModalButton"
+          >
             Register
           </Button>
         </form>

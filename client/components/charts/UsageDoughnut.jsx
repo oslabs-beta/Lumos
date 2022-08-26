@@ -8,39 +8,43 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 function UsageDoughnut() {
   const [userInfo, setUserInfo] = useContext(InfoContext);
 
-  let arrayValues = [];
-  let usageDonutEl = []
+  let funcNames = [];
+  let funcInvocations = [];
 
   userInfo.lambdaFuncs.forEach((el) => {
-    arrayValues.push(el.funcName);
-    usageDonutEl.push(el.totalInvocation)
-  })
+    funcNames.push(el.funcName);
+    funcInvocations.push(el.totalInvocations);
+  });
 
-  console.log('arrayValues: ', arrayValues, {usageDonutEl});
+  const borderColor1 = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+    Math.random() * 256
+  )}, ${Math.floor(Math.random() * 256)})`;
+
+  const borderColor2 = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+    Math.random() * 256
+  )}, ${Math.floor(Math.random() * 256)})`;
+
+  const borderColor3 = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+    Math.random() * 256
+  )}, ${Math.floor(Math.random() * 256)})`;
+
+  const borderColor4 = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+    Math.random() * 256
+  )}, ${Math.floor(Math.random() * 256)})`;
 
   const data = {
-    labels: [
-      "us_east_add", // .funcName
-      "us_east_cool",
-      "us_east_count",
-      "us_east_subtract"
-    ],
+    labels: funcNames,
     datasets: [
       {
         label: "# of Invocations",
-        data: arrayValues,
+        data: funcInvocations,
         backgroundColor: [
-          "#d86613",
-          "#DC7521",
-          "#E0852E",
-          "#E4943C"
+          borderColor1,
+          borderColor2,
+          borderColor3,
+          borderColor4,
         ],
-        borderColor: [
-          "#d86613",
-          "#DC7521",
-          "#E0852E",
-          "#E4943C"
-        ],
+        borderColor: [borderColor1, borderColor2, borderColor3, borderColor4],
         borderWidth: 1,
       },
     ],
