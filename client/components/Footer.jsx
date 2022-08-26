@@ -14,8 +14,8 @@ function Footer() {
           | <a href="https://medium.com/">Medium</a>
         </div>
         <div className="footer-middle">
-          Accelerated by <a href="https://opensourcelabs.io/">OS Labs</a>, an
-          organization dedicated to open-source projects.
+          Accelerated by <a href="https://opensourcelabs.io/">OS Labs</a> as an
+          open-source project.
         </div>
         <div className="footer-right">2022 © Lumos Tools</div>
       </div>

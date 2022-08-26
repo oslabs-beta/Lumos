@@ -18,7 +18,7 @@ export default function LandingPage() {
             <h6>About Lumos</h6>
             Lumos is an open-source offering that provides a solution by merging
             analytics with polished UI integrations to improve end-users
-            interaction with Lambda metrics <br />— resulting in a user-friendly
+            interaction with Lambda metrics — resulting in a user-friendly
             experience.
           </p>
           <p>
