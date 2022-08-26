@@ -9,7 +9,9 @@
     "windows-dev": "concurrently \"NODE_ENV=development node server/server.js\" \"NODE_ENV=development webpack serve --open\"",
     "win-dev2": "concurrently \"cross-env NODE_ENV=development nodemon server/server.js\" \"cross-env NODE_ENV=development webpack serve --open\"",
     "build": "NODE_ENV=production webpack",
-    "start": "nodemon server/server.js"
+    "start": "nodemon server/server.js",
+    "install-client": "npm install",
+    "heroku-postbuild": "npm run install-client && npm run build"
   },
   "repository": {
     "type": "git",
