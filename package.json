@@ -43,6 +43,7 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
+    "@aws-amplify/cli": "^9.2.1",
     "@aws-sdk/client-cloudwatch": "^3.142.0",
     "@aws-sdk/client-ec2": "^3.147.0",
     "@aws-sdk/client-iam": "^3.142.0",

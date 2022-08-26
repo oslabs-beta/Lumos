@@ -51,11 +51,11 @@ Lumos requires access keys to sign programmatic requests to the AWS SDK. It is b
 
 1. In your AWS console, create an new IAM user. Make sure to check off "Access key - Programmatic access" when selecting an AWS credential type. Save these keys in a secure location. **_They cannot be retrieved after you've completed your IAM setup!_** If you lose your key, you will have to delete the access key and create a new one.
 
-- <img src='./client/assets/README/IAMSetup.png'/>
+- <img src='./client/assets/README/iamadduser.png'/>
 
 2. Attach two existing policies directly to your IAM user's security policy:
 
-- <img src='./client/assets/README/IAMSetupPermissions.png'/>
+- <img src='./client/assets/README/iampermissions.png'/>
 
 3. [Download and install the AWS CLI.](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 

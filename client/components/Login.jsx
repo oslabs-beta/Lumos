@@ -66,7 +66,6 @@ export default function Login() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
         },
         body: JSON.stringify(result),
       }).then((h) => console.log("added", { h }));
