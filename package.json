@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve",
     "windows-dev": "concurrently \"NODE_ENV=development node server/server.js\" \"NODE_ENV=development webpack serve --open\"",
-    "win-dev2": "concurrently \"cross-env NODE_ENV=development nodemon server/server.js\" \"cross-env NODE_ENV=development webpack serve --open\""
+    "win-dev2": "concurrently \"cross-env NODE_ENV=development nodemon server/server.js\" \"cross-env NODE_ENV=development webpack serve --open\"",
+    "build": "NODE_ENV=production webpack",
+    "start": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",

@@ -33,7 +33,7 @@ pool.connect((err) => {
     return err;
   }
 
-  console.log("it worked wow fuck you ");
+  console.log("it worked");
 });
 
 // const client = new Client({
