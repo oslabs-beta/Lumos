@@ -38,7 +38,10 @@ export default function Sign() {
 
     fetch("/user/login", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+      },
       body: JSON.stringify(result),
     })
       .then((response) => response.json())
