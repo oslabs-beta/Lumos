@@ -1,21 +1,11 @@
-const express = require("express");
+const express = require('express');
+
 const router = express.Router();
-//middleware
-const userController = require("../controllers/userController.js");
-const authController = require("../controllers/authController");
 
-router.post(
-  "/register",
-  userController.createUser,
-  authController.verifyToken,
-  (req, res) => res.status(200).send("User created in database")
-);
+const userController = require('../controllers/userController');
 
-router.post(
-  "/login",
-  userController.verifyUser,
-  authController.verifyToken,
-  (req, res) => res.status(200).json(res.locals.user)
+router.post('/register', userController.createUser, (_, res) =>
+  res.status(200).send(res.locals.user),
 );
 
 module.exports = router;
