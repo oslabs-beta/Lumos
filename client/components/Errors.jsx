@@ -5,10 +5,9 @@ import { InfoContext } from "../containers/MainContainer.jsx";
 
 // :)
 function Errors() {
-  // const [userInfo, setUserInfo] = useContext(InfoContext);
   const [userInfo] = useContext(InfoContext);
-  // useEffect(() => {}, [userInfo]);
   let ar = [];
+  
   for (let i = 0; i < userInfo.lambdaFuncs.length; i += 1) {
     const func = userInfo.lambdaFuncs[i];
     const label = func.funcName;

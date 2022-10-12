@@ -58,7 +58,6 @@ const options = {
 // this all gets done AFTER state object has been populated from Login's successful verification
 // we'll need 3 buttons created at the Header for 24 Hour / 7 Day / 30 Day time frames that each make fetch calls with different start/end dates
 
-//bet
 
 function Latency() {
   const [userInfo, setUserInfo] = useContext(InfoContext);

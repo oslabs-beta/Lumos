@@ -9,7 +9,6 @@ import dashboardIcon from "../assets/lotties/dashboardIcon.json";
 
 export default function DayButton() {
   const [userInfo, setUserInfo] = useContext(InfoContext);
-  //if userInfo.loggedIn !== return 'you must be signed in'  else submithandler
 
   const submitHandler = (e) => {
     e.preventDefault();
