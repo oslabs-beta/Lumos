@@ -18,25 +18,4 @@ const getLambdaFuncs = async () => {
   }
 };
 
-// const allLambdaFuncs = [
-//   {
-//   funcName: "", // label
-//   totalInvocations: this.funcValues.reduce((a, b) => a + b, 0), // total sum
-//   totalErrors: 0,
-//   timeStamps: [],
-//   funcValues: []
-//   }
-// ]
-
-// const getFunc = async () => {
-//   try {
-//     const client = new LambdaClient({ region: 'us-east-1' });
-//     const command = new GetFunctionCommand({ FunctionName: 'arn:aws:lambda:us-east-1:528832648632:function:add:$LATEST' });
-//     const response = await client.send(command)
-//     console.log(response)
-//   } catch (err) {
-//     return err
-//   }
-// }
-
 module.exports = getLambdaFuncs;

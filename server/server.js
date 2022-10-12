@@ -17,13 +17,6 @@ app.use(cookieParser());
 app.use("/user", userRouter);
 app.use("/metric", metricRouter);
 
-// app.get("/*", function (req, res) {
-//   res.sendFile(path.join(__dirname, "client/index.html"), function (err) {
-//     if (err) {
-//       res.status(404).send(err);
-//     }
-//   });
-// });
 
 app.use(express.static(path.resolve(__dirname, "../dist")));
 
