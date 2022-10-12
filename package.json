@@ -54,7 +54,6 @@
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@mui/material": "^5.9.3",
-    "aws-sdk": "^2.1202.0",
     "babel-loader": "^8.2.5",
     "bcryptjs": "^2.4.3",
     "chart.js": "^3.9.0",

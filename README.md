@@ -74,7 +74,7 @@ The key lambda metrics we found to be of most interest to users were invocations
 
 At Lumos, we open-sourced the project with the intention of having amazing people iterate on our project.
 
-If you have any suggestions on how to make Lumos better, please follow the steps below:
+If you have any suggestions on how to improve Lumos, please follow the steps below:
 
 1. Fork Lumos
 2. Create your Feature Branch (`git checkout -b feature/YourFeature`)
