@@ -6,15 +6,17 @@ export default `#graphql
   }
 
   type User {
+    id: ID!
     arn: String!
   }
 
   type Query {
     getCredentials(roleArn: String!, externalId: String!): Credentials!
-    getArn(id: ID!): User!
+    getArn(id: String!): User!
   }
 
   type Mutation {
-    createUser(email: String!, password: String!, arn: String!): String!
+    createUser(email: String!, password: String!, arn: String!): User!
   }
+
 `;

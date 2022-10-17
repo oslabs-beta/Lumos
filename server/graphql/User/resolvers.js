@@ -1,6 +1,6 @@
 import { STSClient, AssumeRoleCommand } from '@aws-sdk/client-sts';
 
-const resolvers = {
+export default {
   Query: {
     getCredentials: async (_, { roleArn, externalId }) => {
       try {
@@ -20,23 +20,28 @@ const resolvers = {
           sessionToken: response.Credentials.SessionToken,
         };
       } catch (err) {
-        console.log(err);
         return err;
       }
     },
 
-    getArn: () => {
-      try {
-        //
-      } catch (err) {
-        return err;
-      }
+    getArn: (_, { id }, { db }) => {
+      const res = db
+        .query(`SELECT arn FROM users WHERE id=${id}`)
+        .then((data) => data.rows[0])
+        .catch((err) => err);
+      return res;
     },
   },
 
   Mutation: {
-    //
+    createUser: (_, { email, password, arn }, { db }) => {
+      const res = db
+        .query(
+          `INSERT INTO users(email, password, arn) VALUES('${email}', '${password}', '${arn}') RETURNING id, arn`,
+        )
+        .then((data) => data.rows[0])
+        .catch((err) => err);
+      return res;
+    },
   },
 };
-
-export default resolvers;

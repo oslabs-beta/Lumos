@@ -4,12 +4,16 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 
 import UserType from './graphql/User/typedefs.js';
 import UserResolvers from './graphql/User/resolvers.js';
+import db from './db/index.cjs';
 
-// Use context object to store auth
 const server = new ApolloServer({
   typeDefs: UserType,
   resolvers: UserResolvers,
 });
 
-const { url } = await startStandaloneServer(server);
+const { url } = await startStandaloneServer(server, {
+  context: async () => ({
+    db,
+  }),
+});
 console.log(`server ready at ${url}`);
