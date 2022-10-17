@@ -13,7 +13,7 @@ export default `#graphql
   type Query {
     getCredentials(roleArn: String!, externalId: String!): Credentials!
     getArn(id: String!): User!
-    validatePassword(email: String!, password: String!): Boolean!
+    authenticateUser(email: String!, password: String!): Boolean!
   }
 
   type Mutation {

@@ -33,7 +33,7 @@ export default {
       return res;
     },
 
-    validatePassword: (_, { email, password }, { db }) => {
+    authenticateUser: (_, { email, password }, { db }) => {
       const res = db
         .query(`SELECT password FROM users WHERE email = '${email}'`)
         .then((data) => data.rows[0].password)
