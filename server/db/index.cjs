@@ -1,9 +1,7 @@
+require('dotenv').config();
 const { Pool } = require('pg');
 
-const pool = new Pool({
-  connectionString:
-    'postgres://hqtdaxpj:QBKrOx1TsD79gVw-GSLQ89b335iqReba@chunee.db.elephantsql.com/hqtdaxpj',
-});
+const pool = new Pool();
 
 module.exports = {
   query: (text, params, callback) => {

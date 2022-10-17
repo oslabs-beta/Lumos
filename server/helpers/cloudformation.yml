@@ -1,0 +1,33 @@
+Description: Create a role for Lumos Tools to allow metric queries
+
+Resources:
+  LumosRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal: # Trusted entity
+              AWS: arn:aws:iam::676254708445:root
+            Condition:
+              StringEquals:
+                #TODO change ExternalId
+                sts:ExternalId: Lumos676254708445
+      Policies:
+        - PolicyName: ReadyOnlyMetrics
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - cloudwatch:Get*
+                  - cloudwatch:List*
+                  - lambda:ListFunctions
+                Resource: '*'
+
+Outputs:
+  LumosRoleARN:
+    Description: ARN for Lumos role
+    Value: !GetAtt LumosRole.Arn
