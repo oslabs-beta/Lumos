@@ -1,4 +1,5 @@
 import { STSClient, AssumeRoleCommand } from '@aws-sdk/client-sts';
+import bcrypt from 'bcrypt';
 
 export default {
   Query: {
@@ -31,13 +32,23 @@ export default {
         .catch((err) => err);
       return res;
     },
+
+    validatePassword: (_, { email, password }, { db }) => {
+      const res = db
+        .query(`SELECT password FROM users WHERE email = '${email}'`)
+        .then((data) => data.rows[0].password)
+        .then((hash) => bcrypt.compareSync(password, hash))
+        .catch((err) => err);
+      return res;
+    },
   },
 
   Mutation: {
     createUser: (_, { email, password, arn }, { db }) => {
+      const hash = bcrypt.hashSync(password, 10);
       const res = db
         .query(
-          `INSERT INTO users(email, password, arn) VALUES('${email}', '${password}', '${arn}') RETURNING id, arn`,
+          `INSERT INTO users(email, password, arn) VALUES('${email}', '${hash}', '${arn}') RETURNING id, arn`,
         )
         .then((data) => data.rows[0])
         .catch((err) => err);
