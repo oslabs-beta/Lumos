@@ -2,9 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "server.mjs",
+  "type": "module",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.mjs"
   },
   "keywords": [],
   "author": "",
@@ -16,11 +17,16 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
-    "@aws-sdk/client-cloudformation": "^3.186.0",
+    "@apollo/server": "^4.0.0",
+    "@aws-sdk/client-cloudwatch": "^3.186.0",
+    "@aws-sdk/client-cloudwatch-logs": "^3.186.0",
+    "@aws-sdk/client-lambda": "^3.186.0",
+    "@aws-sdk/client-sts": "^3.186.0",
+    "apollo-datasource-rest": "^3.7.0",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2",
+    "graphql": "^16.6.0",
     "pg": "^8.8.0"
   }
 }
