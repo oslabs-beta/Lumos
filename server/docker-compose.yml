@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  lumos:
+    image: lumos
+    container_name: lumos
+    build: .
+    ports:
+      - '4000:4000'
+    env_file:
+      - ./.env
+  db:
+    image: postgres:15.0-alpine
+    container_name: db
+    environment:
+      - 'POSTGRES_USER=${PGUSER}'
+      - 'POSTGRES_PASSWORD=${PGPASSWORD}'
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
