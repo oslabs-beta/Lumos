@@ -13,8 +13,7 @@ Resources:
               AWS: arn:aws:iam::676254708445:root
             Condition:
               StringEquals:
-                #TODO change ExternalId
-                sts:ExternalId: Lumos676254708445
+                sts:ExternalId: LumosTools676
       Policies:
         - PolicyName: ReadyOnlyMetrics
           PolicyDocument:
@@ -22,9 +21,15 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - cloudwatch:Get*
-                  - cloudwatch:List*
-                  - lambda:ListFunctions
+                  - lambda:Get*,
+                  - lambda:List*,
+                  - logs:Describe*,
+                  - logs:List*,
+                  - logs:Get*,
+                  - logs:FilterLogEvents,
+                  - cloudwatch:List*,
+                  - cloudwatch:Get*,
+                  - cloudwatch:Describe*
                 Resource: '*'
 
 Outputs:
