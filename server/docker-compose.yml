@@ -8,6 +8,8 @@ services:
       - '4000:4000'
     env_file:
       - ./.env
+    volumes:
+      - '.:/server'
   db:
     image: postgres:15.0-alpine
     container_name: db
@@ -16,8 +18,3 @@ services:
       - 'POSTGRES_PASSWORD=${PGPASSWORD}'
     ports:
       - '5432:5432'
-    volumes:
-      - db:/var/lib/postgresql/data
-
-volumes:
-  db:

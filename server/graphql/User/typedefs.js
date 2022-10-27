@@ -19,5 +19,4 @@ export default `#graphql
   type Mutation {
     createUser(email: String!, password: String!, arn: String!): User!
   }
-
 `;

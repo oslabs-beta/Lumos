@@ -11,14 +11,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "eslint": "^8.25.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
+    "jest": "^29.2.2",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
     "@apollo/server": "^4.0.0",
     "@aws-sdk/client-cloudwatch": "^3.186.0",
+    "@aws-sdk/client-cloudwatch-logs": "^3.197.0",
     "@aws-sdk/client-lambda": "^3.186.0",
     "@aws-sdk/client-sts": "^3.186.0",
     "@graphql-tools/merge": "^8.3.6",

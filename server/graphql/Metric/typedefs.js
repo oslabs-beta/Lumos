@@ -1,6 +1,11 @@
 export default `#graphql
-  type Query {
-    listLambdaFuncs: [String]
+  type LogGroup {
+    arn: String
+    logGroupName: String
   }
 
+  type Query {
+    listLambdaFuncs: [String]
+    getLogGroups: [LogGroup]
+  }
 `;

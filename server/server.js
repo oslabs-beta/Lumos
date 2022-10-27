@@ -11,8 +11,8 @@ const server = new ApolloServer({
 });
 
 const { url } = await startStandaloneServer(server, {
-  context: async () => ({
-    db,
-  }),
+  context: async () => {
+    return { db };
+  },
 });
 console.log(`server ready at ${url}`);
