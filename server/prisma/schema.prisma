@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum METRIC_NAME {
+  INVOCATION_COUNT
+  ERROR_COUNT
+  DEAD_LETTER_ERROR_COUNT
+  AVG_DURATION
+  THROTTLE_COUNT
+  CONCURRENT_EXECUTIONS_COUNT
+  UNRESERVED_CONCURRENT_EXECUTIONS_COUNT
+}
+
+model User {
+  id        String   @id @default(uuid()) // default to guaranteed unique string
+  email     String   @unique
+  password  String?
+  google_id String?  @unique
+  createdAt DateTime @default(now())
+  metrics   Metric[]
+}
+
+model Metric {
+  id         String      @id @default(uuid())
+  user       User        @relation(fields: [id], references: [id])
+  userId     String
+  metricName METRIC_NAME
+  startTime  DateTime
+  endTime    DateTime
+  period     Int
+  metricData String[]
+}
