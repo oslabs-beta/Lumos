@@ -1,10 +1,3 @@
-import { Pool } from 'pg';
+import { PrismaClient } from '@prisma/client';
 
-const pool = new Pool();
-
-export default {
-  query: (text: string, arr?: string[]) => {
-    console.log('Executed query:', text);
-    return pool.query(text, arr);
-  },
-};
+export default new PrismaClient();
