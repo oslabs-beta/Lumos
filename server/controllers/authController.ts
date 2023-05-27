@@ -1,9 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import { hashPassword } from '../helpers/auth';
+import { validationResult } from 'express-validator';
 
 import prisma from '../db';
 
 export default {
+  handleInputValidation: (req: Request, res: Response, next: NextFunction) => {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+      return res.status(400).send(error);
+    }
+    return next();
+  },
+
   register: async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
     try {
