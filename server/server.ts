@@ -11,10 +11,10 @@ import passport from './config/passport';
 dotenv.config();
 const app: Express = express();
 
-app.use(morgan('dev'));
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(morgan('dev')); // log status codes for dev
+app.use(cors()); // enable CORS
+app.use(express.json()); // parse JSON
+app.use(express.urlencoded({ extended: true })); // parse query params, form data
 app.use(
   session({
     secret: process.env.SESSION_SECRET as string,
@@ -28,6 +28,6 @@ app.use(passport.session());
 app.use('/auth', authRouter);
 app.use('/metric', passport.authenticate('local'), metricRouter);
 
-app.listen(process.env.PORT, () =>
+export default app.listen(process.env.PORT, () =>
   console.log(`⚡️ Server running on http://localhost:${process.env.PORT} ⚡️`),
 );
