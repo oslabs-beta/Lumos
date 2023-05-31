@@ -7,13 +7,7 @@ import MonthButton from "./monthButton.jsx";
 
 function Header() {
   return (
-    <Box className="Header">
-      {/* <div className="timeButtonContainer">
-      <DayButton />
-      <WeekButton />
-      <MonthButton />
-      </div> */}
-    </Box>
+    <Box className="Header"></Box>
   );
 }
 

@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid()) // default to guaranteed unique string
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  metrics   Metric[]
+}
+
+model Metric {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [id], references: [id])
+  userId     String
+  metricName String
+  startTime  DateTime
+  endTime    DateTime
+  period     Int
+  metricData String[]
+}

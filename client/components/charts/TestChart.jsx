@@ -95,7 +95,6 @@ function TestChart() {
 
       if (userInfo.timePeriod !== "day") {
         if (func.formattedTimeStamps.includes(time)) {
-          // const index = func.formattedTimeStamps.indexOf(time);
           let sum = 0;
 
           for (let i = 0; i < func.formattedTimeStamps.length; i++) {
@@ -110,10 +109,8 @@ function TestChart() {
         }
       } else {
         if (func.formattedTime && func.formattedTime.includes(time)) {
-          // const timeObj = {};
-          // const index = func.formattedTime.indexOf(time);
-
           let sum = 0;
+          
           for (let i = 0; i < func.formattedTime.length; i++) {
             if (func.formattedTime[i] === time) {
               sum += func.invocationsArray[i];
@@ -146,7 +143,6 @@ function TestChart() {
   }
 
   console.log("datasets: ", datasets);
-
   const data = {
     labels: labels,
     datasets: datasets,
