@@ -11,6 +11,7 @@ export default async function getLambdaFuncs(): Promise<string[]> {
     const client = new LambdaClient({ region: 'us-east-1' });
     const command = new ListFunctionsCommand({ FunctionVersion: 'ALL' });
     const response: ListFunctionsResponse = await client.send(command); // This returns FunctionArn and FunctionName
+    // @ts-ignore
     return response.Functions?.map((f) => f.FunctionName);
   } catch (err) {
     console.error(err);
